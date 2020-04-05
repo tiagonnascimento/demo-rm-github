@@ -1,0 +1,13 @@
+{
+    "records": [
+        {
+            "attributes": {
+                "type": "Risk_Assessment_Definition__c",
+                "referenceId": "Risk_Assessment_Definition__cRef1"
+            },
+            "Active__c": true,
+            "Initial_Date__c": "2020-04-03",
+            "Name": "Initial Test Covid 19"
+        }
+    ]
+}
