@@ -1,0 +1,42 @@
+[
+    {
+        "sobject": "Risk_Assessment_Definition__c",
+        "saveRefs": true,
+        "resolveRefs": false,
+        "files": [
+            "export-data-Risk_Assessment_Definition__cs.json"
+        ]
+    },
+    {
+        "sobject": "Risk_Assessment_Section__c",
+        "saveRefs": true,
+        "resolveRefs": true,
+        "files": [
+            "export-data-Risk_Assessment_Section__cs.json"
+        ]
+    },
+    {
+        "sobject": "Risk_Category__c",
+        "saveRefs": false,
+        "resolveRefs": true,
+        "files": [
+            "export-data-Risk_Category__cs.json"
+        ]
+    },
+    {
+        "sobject": "Question__c",
+        "saveRefs": true,
+        "resolveRefs": true,
+        "files": [
+            "export-data-Question__cs.json"
+        ]
+    },
+    {
+        "sobject": "Question_Option__c",
+        "saveRefs": false,
+        "resolveRefs": true,
+        "files": [
+            "export-data-Question_Option__cs.json"
+        ]
+    }
+]

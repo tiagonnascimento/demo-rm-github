@@ -1,0 +1,24 @@
+{
+    "records": [
+        {
+            "attributes": {
+                "type": "Risk_Assessment_Section__c",
+                "referenceId": "Risk_Assessment_Section__cRef1"
+            },
+            "Risk_Assessment_Definition__c": "@Risk_Assessment_Definition__cRef1",
+            "DisplayText__c": "Sintomas",
+            "Name": "Sintomas",
+            "Sequence__c": 10
+        },
+        {
+            "attributes": {
+                "type": "Risk_Assessment_Section__c",
+                "referenceId": "Risk_Assessment_Section__cRef2"
+            },
+            "Risk_Assessment_Definition__c": "@Risk_Assessment_Definition__cRef1",
+            "DisplayText__c": "Fatores de Risco",
+            "Name": "Fatores de Risco",
+            "Sequence__c": 20
+        }
+    ]
+}
