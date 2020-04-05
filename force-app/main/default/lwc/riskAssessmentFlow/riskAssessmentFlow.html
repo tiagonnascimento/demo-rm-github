@@ -1,3 +1,12 @@
 <template>
-    
+    <lightning-card title="Questions" icon-name="custom:custom14">
+        <div class="slds-m-around_medium">
+        <template for:each={questions.data} for:item="question">
+            <div key={question.Id}>
+                <p>{question.Risk_Assessment_Section__r.Name}</p>
+                <p>{question.Question_Text__c}</p>
+            </div>
+        </template>
+        </div>
+    </lightning-card>
 </template>
