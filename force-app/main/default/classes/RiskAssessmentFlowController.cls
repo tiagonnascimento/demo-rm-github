@@ -7,73 +7,73 @@ public with sharing class RiskAssessmentFlowController {
 
         List<Section> sectionList = new List<Section>();
 
-        Risk_Assessment_Definition__c rad = 
-            [SELECT Id
-            FROM Risk_Assessment_Definition__c WHERE Active__c = TRUE 
-            ORDER BY Initial_Date__c DESC  
-            LIMIT 1];
+        // Risk_Assessment_Definition__c rad = 
+        //     [SELECT Id
+        //     FROM Risk_Assessment_Definition__c WHERE Active__c = TRUE 
+        //     ORDER BY Initial_Date__c DESC  
+        //     LIMIT 1];
 
-        List<Risk_Assessment_Section__c> sectionsc = 
-            [SELECT Id, Name From Risk_Assessment_Section__c 
-            WHERE Risk_Assessment_Definition__c = :rad.Id 
-            ORDER BY Sequence__c];
+        // List<Risk_Assessment_Section__c> sectionsc = 
+        //     [SELECT Id, Name From Risk_Assessment_Section__c 
+        //     WHERE Risk_Assessment_Definition__c = :rad.Id 
+        //     ORDER BY Sequence__c];
         
-        Integer sectionNumber = 0;
-        Integer questionNumber = 0;
+        // Integer sectionNumber = 0;
+        // Integer questionNumber = 0;
 
-        for (Risk_Assessment_Section__c sectionc : sectionsc) {
-            Section sec = new Section();
-            sec.Id = sectionc.Id;
-            sec.text = sectionc.Name;
-            sec.sectionHTMLId = HTML_ID_PREFIX + 'S-' + sectionNumber;
-            sec.questions = new List<Question>();
+        // for (Risk_Assessment_Section__c sectionc : sectionsc) {
+        //     Section sec = new Section();
+        //     sec.Id = sectionc.Id;
+        //     sec.text = sectionc.Name;
+        //     sec.sectionHTMLId = HTML_ID_PREFIX + 'S-' + sectionNumber;
+        //     sec.questions = new List<Question>();
 
-            List<Question__c> questionsc = 
-                [SELECT Id, Question_Text__c, Question_Type__c, Weight__c, 
-                    (Select Id, Option_Value__c, Option_Score__c FROM Question_Options__r) 
-                FROM Question__c 
-                WHERE Risk_Assessment_Section__c = :sectionc.Id
-                ORDER BY Sequence__c];
+        //     List<Question__c> questionsc = 
+        //         [SELECT Id, Question_Text__c, Question_Type__c, Weight__c, 
+        //             (Select Id, Option_Value__c, Option_Score__c FROM Question_Options__r) 
+        //         FROM Question__c 
+        //         WHERE Risk_Assessment_Section__c = :sectionc.Id
+        //         ORDER BY Sequence__c];
 
-            for (Question__c questionc : questionsc) {
-                Question qst = new Question();
-                qst.id = questionc.Id;
-                qst.text = questionc.Question_Text__c;
-                qst.setType(questionc.Question_Type__c);
-                qst.weight = questionc.Weight__c;
-                qst.questionHTMLId = sec.sectionHTMLId + '-Q-' + questionNumber;
-                questionNumber += 1;
+        //     for (Question__c questionc : questionsc) {
+        //         Question qst = new Question();
+        //         qst.id = questionc.Id;
+        //         qst.text = questionc.Question_Text__c;
+        //         qst.setType(questionc.Question_Type__c);
+        //         qst.weight = questionc.Weight__c;
+        //         qst.questionHTMLId = sec.sectionHTMLId + '-Q-' + questionNumber;
+        //         questionNumber += 1;
 
-                if (sectionNumber + 1 < sectionsc.size()) {
-                    qst.nextSectionHTMLId = HTML_ID_PREFIX + 'S-' + (sectionNumber + 1);
-                }
+        //         if (sectionNumber + 1 < sectionsc.size()) {
+        //             qst.nextSectionHTMLId = HTML_ID_PREFIX + 'S-' + (sectionNumber + 1);
+        //         }
 
-                if (questionNumber < questionsc.size()) {
-                    qst.nextQuestionHTMLId = sec.sectionHTMLId + '-Q-' + questionNumber;
-                } else {
-                    qst.nextQuestionHTMLId = qst.nextSectionHTMLId + '-Q-0';
-                }
+        //         if (questionNumber < questionsc.size()) {
+        //             qst.nextQuestionHTMLId = sec.sectionHTMLId + '-Q-' + questionNumber;
+        //         } else {
+        //             qst.nextQuestionHTMLId = qst.nextSectionHTMLId + '-Q-0';
+        //         }
 
-                qst.options = new List<Option>();
-                if (questionc.Question_Options__r != null && questionc.Question_Options__r.size() > 0) {
-                    for (Question_Option__c optionc : questionc.Question_Options__r) {
-                        Option opt = new Option();
-                        opt.label = optionc.Option_Value__c;
-                        opt.value = String.valueOf(optionc.Option_Score__c);
-                        qst.options.add(opt);
-                    }
-                }
-                sec.questions.add(qst);
-            }
-            sectionNumber += 1;
-            questionNumber = 0;
-            sectionList.add(sec);
-        }
+        //         qst.options = new List<Option>();
+        //         if (questionc.Question_Options__r != null && questionc.Question_Options__r.size() > 0) {
+        //             for (Question_Option__c optionc : questionc.Question_Options__r) {
+        //                 Option opt = new Option();
+        //                 opt.label = optionc.Option_Value__c;
+        //                 opt.value = String.valueOf(optionc.Option_Score__c);
+        //                 qst.options.add(opt);
+        //             }
+        //         }
+        //         sec.questions.add(qst);
+        //     }
+        //     sectionNumber += 1;
+        //     questionNumber = 0;
+        //     sectionList.add(sec);
+        // }
 
-        System.debug('Quantity of sections found: ' + sectionList.size());
-        for (Section sec : sectionList) {
-            System.debug('Section: ' + JSON.serializePretty(sec));
-        }
+        // System.debug('Quantity of sections found: ' + sectionList.size());
+        // for (Section sec : sectionList) {
+        //     System.debug('Section: ' + JSON.serializePretty(sec));
+        // }
 
         return sectionList;
     }

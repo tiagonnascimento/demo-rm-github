@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <fullName>Question__c</fullName>
+    <deprecated>false</deprecated>
+    <externalId>false</externalId>
+    <label>Question</label>
+    <referenceTo>BSC_Question__c</referenceTo>
+    <relationshipLabel>Question Options</relationshipLabel>
+    <relationshipName>Question_Options</relationshipName>
+    <relationshipOrder>0</relationshipOrder>
+    <reparentableMasterDetail>false</reparentableMasterDetail>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackTrending>false</trackTrending>
+    <type>MasterDetail</type>
+    <writeRequiresMasterRead>false</writeRequiresMasterRead>
+</CustomField>
