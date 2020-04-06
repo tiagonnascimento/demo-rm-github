@@ -15,18 +15,6 @@
         {
             "attributes": {
                 "type": "Question__c",
-                "referenceId": "Question__cRef2"
-            },
-            "Name": "IMC",
-            "Question_Text__c": "IMC",
-            "Question_Type__c": "Calculated",
-            "Sequence__c": 30,
-            "Weight__c": 0.5,
-            "Risk_Assessment_Section__c": "@Risk_Assessment_Section__cRef2"
-        },
-        {
-            "attributes": {
-                "type": "Question__c",
                 "referenceId": "Question__cRef3"
             },
             "Name": "Peso",

@@ -2,39 +2,45 @@
     <lightning-card title="COVID-19 - Formulário de Avaliação de Riscos" icon-name="custom:custom94">
         <div class="slds-m-around_medium">
             <template for:each={sections.data} for:item="section">
-                <div key={section.id} id={section.id}>
+                <div class={sectionClass} key={section.id} >
                     <h3 class="slds-section__title slds-theme_shade">
                         <span class="slds-truncate" title="Section Title">{section.text}</span>
                     </h3>
                     <template for:each={section.questions} for:item="question">
-                        <div class="slds-m-around_medium" key={question.id} id={question.id}>
-                            <template if:true={question.isText}>
-                                <lightning-input 
-                                    type="text" 
-                                    label={question.text} 
-                                    placeholder="Digite um texto..."
-                                    required>
-                                </lightning-input>
-                            </template>
-                            <template if:true={question.isNumber}>
-                                <lightning-input 
-                                    type="number" 
-                                    label={question.text} 
-                                    placeholder="Digite um número..." 
-                                    step="0.01"
-                                    required
-                                    onchange={handleChange}>
-                                </lightning-input>
-                            </template>
-                            <template if:true={question.isList}>
-                                <lightning-radio-group
-                                    type="button"
-                                    label={question.text}
-                                    options={question.options}
-                                    required
-                                    onchange={handleChange}>
-                                </lightning-radio-group>
-                            </template>
+                        <div class={questionClass} key={question.id}>
+                            <div class="slds-m-around_medium">
+                                <template if:true={question.isText}>
+                                    <lightning-input 
+                                        id={question.questionHTMLId}    
+                                        type="text" 
+                                        label={question.text} 
+                                        placeholder="Digite um texto..."
+                                        required
+                                        onchange={handleChange}>
+                                    </lightning-input>
+                                </template>
+                                <template if:true={question.isNumber}>
+                                    <lightning-input 
+                                        id={question.questionHTMLId}
+                                        type="number" 
+                                        label={question.text} 
+                                        placeholder="Digite um número..." 
+                                        step="0.01"
+                                        required
+                                        onchange={handleChange}>
+                                    </lightning-input>
+                                </template>
+                                <template if:true={question.isList}>
+                                    <lightning-radio-group
+                                        id={question.questionHTMLId}    
+                                        type="button"
+                                        label={question.text}
+                                        options={question.options}
+                                        required
+                                        onchange={handleChange}>
+                                    </lightning-radio-group>
+                                </template>
+                            </div>
                         </div>
                     </template>
                 </div>

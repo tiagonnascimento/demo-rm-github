@@ -1,5 +1,7 @@
 public with sharing class RiskAssessmentFlowController {
 
+    public static String HTML_ID_PREFIX = 'BS-COVID-19-';
+
     @AuraEnabled(cacheable=true)
     public static List<Section> getRiskAssessmentQuestionaire() {
 
@@ -15,11 +17,15 @@ public with sharing class RiskAssessmentFlowController {
             [SELECT Id, Name From Risk_Assessment_Section__c 
             WHERE Risk_Assessment_Definition__c = :rad.Id 
             ORDER BY Sequence__c];
+        
+        Integer sectionNumber = 0;
+        Integer questionNumber = 0;
 
         for (Risk_Assessment_Section__c sectionc : sectionsc) {
             Section sec = new Section();
             sec.Id = sectionc.Id;
             sec.text = sectionc.Name;
+            sec.sectionHTMLId = HTML_ID_PREFIX + 'S-' + sectionNumber;
             sec.questions = new List<Question>();
 
             List<Question__c> questionsc = 
@@ -35,6 +41,19 @@ public with sharing class RiskAssessmentFlowController {
                 qst.text = questionc.Question_Text__c;
                 qst.setType(questionc.Question_Type__c);
                 qst.weight = questionc.Weight__c;
+                qst.questionHTMLId = sec.sectionHTMLId + '-Q-' + questionNumber;
+                questionNumber += 1;
+
+                if (sectionNumber + 1 < sectionsc.size()) {
+                    qst.nextSectionHTMLId = HTML_ID_PREFIX + 'S-' + (sectionNumber + 1);
+                }
+
+                if (questionNumber < questionsc.size()) {
+                    qst.nextQuestionHTMLId = sec.sectionHTMLId + '-Q-' + questionNumber;
+                } else {
+                    qst.nextQuestionHTMLId = qst.nextSectionHTMLId + '-Q-0';
+                }
+
                 qst.options = new List<Option>();
                 if (questionc.Question_Options__r != null && questionc.Question_Options__r.size() > 0) {
                     for (Question_Option__c optionc : questionc.Question_Options__r) {
@@ -46,6 +65,8 @@ public with sharing class RiskAssessmentFlowController {
                 }
                 sec.questions.add(qst);
             }
+            sectionNumber += 1;
+            questionNumber = 0;
             sectionList.add(sec);
         }
 
@@ -70,15 +91,17 @@ public with sharing class RiskAssessmentFlowController {
         @AuraEnabled public List<Option> options;
         @AuraEnabled public Boolean isText;
         @AuraEnabled public Boolean isNumber;
-        @AuraEnabled public Boolean isYesNo;
         @AuraEnabled public Boolean isList;
+        @AuraEnabled public String questionHTMLId;
+        @AuraEnabled public String nextQuestionHTMLId;
+        @AuraEnabled public String nextSectionHTMLId;
+
     
 
         public void setType(String type) {
             this.type = type;
             this.isText = 'Text'.equals(type);
             this.isNumber = 'Number'.equals(type);
-            this.isYesNo = 'Yes/No'.equals(type);
             this.isList = 'List'.equals(type);
         }
     }
@@ -86,6 +109,7 @@ public with sharing class RiskAssessmentFlowController {
     public class Section {
         @AuraEnabled public Id id;
         @AuraEnabled public String text;
+        @AuraEnabled public String sectionHTMLId;
         @AuraEnabled public List<Question> questions;
     }
     

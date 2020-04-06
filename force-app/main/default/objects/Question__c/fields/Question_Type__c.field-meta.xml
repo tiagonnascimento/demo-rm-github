@@ -22,11 +22,6 @@
                 <label>Number</label>
             </value>
             <value>
-                <fullName>Calculated</fullName>
-                <default>false</default>
-                <label>Calculated</label>
-            </value>
-            <value>
                 <fullName>List</fullName>
                 <default>false</default>
                 <label>List</label>
