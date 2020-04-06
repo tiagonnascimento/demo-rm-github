@@ -6,9 +6,9 @@
                 "referenceId": "Question_Option__cRef1"
             },
             "Finish_Section__c": false,
-            "Name": "Yes",
+            "Name": "Febre Sim",
             "Option_Score__c": 10,
-            "Option_Value__c": "Yes", 
+            "Option_Value__c": "Sim", 
             "Question__c": "@Question__cRef1"
         },
         {
@@ -17,10 +17,10 @@
                 "referenceId": "Question_Option__cRef2"
             },
             "Finish_Section__c": false,
-            "Name": "Tosse Yes",
-            "Option_Score__c": 15,
-            "Option_Value__c": "Yes", 
-            "Question__c": "@Question__cRef6"
+            "Name": "Febre Não",
+            "Option_Score__c": 0,
+            "Option_Value__c": "Não", 
+            "Question__c": "@Question__cRef1"
         },
         {
             "attributes": {
@@ -28,15 +28,26 @@
                 "referenceId": "Question_Option__cRef3"
             },
             "Finish_Section__c": false,
-            "Name": "Intensa",
-            "Option_Score__c": 3,
-            "Option_Value__c": "Intensa", 
-            "Question__c": "@Question__cRef7"
+            "Name": "Tosse Sim",
+            "Option_Score__c": 10,
+            "Option_Value__c": "Sim", 
+            "Question__c": "@Question__cRef6"
         },
         {
             "attributes": {
                 "type": "Question_Option__c",
                 "referenceId": "Question_Option__cRef4"
+            },
+            "Finish_Section__c": false,
+            "Name": "Tosse Não",
+            "Option_Score__c": 0,
+            "Option_Value__c": "Não", 
+            "Question__c": "@Question__cRef6"
+        },
+        {
+            "attributes": {
+                "type": "Question_Option__c",
+                "referenceId": "Question_Option__cRef5"
             },
             "Finish_Section__c": false,
             "Name": "Leve",
@@ -47,24 +58,13 @@
         {
             "attributes": {
                 "type": "Question_Option__c",
-                "referenceId": "Question_Option__cRef5"
-            },
-            "Finish_Section__c": false,
-            "Name": "No",
-            "Option_Score__c": 0,
-            "Option_Value__c": "No", 
-            "Question__c": "@Question__cRef1"
-        },
-        {
-            "attributes": {
-                "type": "Question_Option__c",
                 "referenceId": "Question_Option__cRef6"
             },
             "Finish_Section__c": false,
-            "Name": "Tosse No",
-            "Option_Score__c": 0,
-            "Option_Value__c": "No", 
-            "Question__c": "@Question__cRef6"
+            "Name": "Moderada",
+            "Option_Score__c": 10,
+            "Option_Value__c": "Moderada", 
+            "Question__c": "@Question__cRef7"
         },
         {
             "attributes": {
@@ -72,9 +72,9 @@
                 "referenceId": "Question_Option__cRef7"
             },
             "Finish_Section__c": false,
-            "Name": "Moderada",
-            "Option_Score__c": 1,
-            "Option_Value__c": "Moderada", 
+            "Name": "Intensa",
+            "Option_Score__c": 20,
+            "Option_Value__c": "Intensa", 
             "Question__c": "@Question__cRef7"
         },
         {
@@ -82,10 +82,10 @@
                 "type": "Question_Option__c",
                 "referenceId": "Question_Option__cRef8"
             },
-            "Finish_Section__c": true,
-            "Name": "Fumante No",
-            "Option_Score__c": 0,
-            "Option_Value__c": "No", 
+            "Finish_Section__c": false,
+            "Name": "Fumante Sim",
+            "Option_Score__c": 10,
+            "Option_Value__c": "Sim", 
             "Question__c": "@Question__cRef8"
         },
         {
@@ -93,10 +93,10 @@
                 "type": "Question_Option__c",
                 "referenceId": "Question_Option__cRef9"
             },
-            "Finish_Section__c": false,
-            "Name": "Fumante Yes",
+            "Finish_Section__c": true,
+            "Name": "Fumante Não",
             "Option_Score__c": 0,
-            "Option_Value__c": "Yes", 
+            "Option_Value__c": "Não", 
             "Question__c": "@Question__cRef8"
         },
         {
@@ -105,9 +105,9 @@
                 "referenceId": "Question_Option__cRef10"
             },
             "Finish_Section__c": false,
-            "Name": "Pressao Yes",
+            "Name": "Pressao Sim",
             "Option_Score__c": 10,
-            "Option_Value__c": "Yes", 
+            "Option_Value__c": "Sim", 
             "Question__c": "@Question__cRef10"
         },
         {
@@ -116,9 +116,9 @@
                 "referenceId": "Question_Option__cRef11"
             },
             "Finish_Section__c": false,
-            "Name": "Pressao No",
+            "Name": "Pressao Não",
             "Option_Score__c": 0,
-            "Option_Value__c": "No", 
+            "Option_Value__c": "Não", 
             "Question__c": "@Question__cRef10"
         }
     ]

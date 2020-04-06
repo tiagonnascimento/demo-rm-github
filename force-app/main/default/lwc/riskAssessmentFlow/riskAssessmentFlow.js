@@ -1,6 +1,6 @@
 import { LightningElement, wire } from 'lwc';
-import getQuestionList from '@salesforce/apex/RiskAssessmentFlowController.getQuestionList';
+import getRiskAssessmentQuestionaire from '@salesforce/apex/RiskAssessmentFlowController.getRiskAssessmentQuestionaire';
 
 export default class RiskAssessmentFlow extends LightningElement {
-    @wire(getQuestionList) questions;
+    @wire(getRiskAssessmentQuestionaire) sections;
 }

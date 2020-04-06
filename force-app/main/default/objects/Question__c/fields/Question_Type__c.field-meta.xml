@@ -27,11 +27,6 @@
                 <label>Calculated</label>
             </value>
             <value>
-                <fullName>Yes/No</fullName>
-                <default>false</default>
-                <label>Yes/No</label>
-            </value>
-            <value>
                 <fullName>List</fullName>
                 <default>false</default>
                 <label>List</label>

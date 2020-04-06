@@ -7,7 +7,7 @@
             },
             "Name": "Febre (acima de 37,8)?",
             "Question_Text__c": "Febre (acima de 37,8)?",
-            "Question_Type__c": "Yes/No",
+            "Question_Type__c": "List",
             "Sequence__c": 10,
             "Weight__c": 1,
             "Risk_Assessment_Section__c": "@Risk_Assessment_Section__cRef1"
@@ -67,7 +67,7 @@
             },
             "Name": "Tosse",
             "Question_Text__c": "Tem Tosse?",
-            "Question_Type__c": "Yes/No",
+            "Question_Type__c": "List",
             "Sequence__c": 20,
             "Weight__c": 1,
             "Risk_Assessment_Section__c": "@Risk_Assessment_Section__cRef1"
@@ -91,7 +91,7 @@
             },
             "Name": "Fumante",
             "Question_Text__c": "É fumante?",
-            "Question_Type__c": "Yes/No",
+            "Question_Type__c": "List",
             "Sequence__c": 40,
             "Weight__c": 0,
             "Risk_Assessment_Section__c": "@Risk_Assessment_Section__cRef2"
@@ -115,7 +115,7 @@
             },
             "Name": "Hipertensão",
             "Question_Text__c": "Pressão Alta ?",
-            "Question_Type__c": "Yes/No",
+            "Question_Type__c": "List",
             "Sequence__c": 35,
             "Weight__c": 1,
             "Risk_Assessment_Section__c": "@Risk_Assessment_Section__cRef2"
