@@ -2,6 +2,8 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Weight__c</fullName>
     <defaultValue>1</defaultValue>
+    <deprecated>false</deprecated>
+    <description>Used only if question type is List. The weight will be multiplied with the option score to define the final score for an answer.</description>
     <externalId>false</externalId>
     <label>Weight</label>
     <precision>18</precision>
