@@ -72,7 +72,7 @@
     </relatedLists>
     <relatedLists>
         <fields>NAME</fields>
-        <relatedList>Risk_Category__c.Risk_Assessment_Definition__c</relatedList>
+        <relatedList>BSC_Risk_Category__c.Risk_Assessment_Definition__c</relatedList>
     </relatedLists>
     <showEmailCheckbox>false</showEmailCheckbox>
     <showHighlightsPanel>false</showHighlightsPanel>

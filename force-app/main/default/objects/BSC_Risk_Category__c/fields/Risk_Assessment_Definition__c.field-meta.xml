@@ -3,7 +3,7 @@
     <fullName>Risk_Assessment_Definition__c</fullName>
     <externalId>false</externalId>
     <label>Risk Assessment  Definition</label>
-    <referenceTo>Risk_Assessment_Definition__c</referenceTo>
+    <referenceTo>BSC_Risk_Assessment_Definition__c</referenceTo>
     <relationshipLabel>Risk Categories</relationshipLabel>
     <relationshipName>Risk_Categories</relationshipName>
     <relationshipOrder>0</relationshipOrder>

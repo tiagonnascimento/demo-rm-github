@@ -23,10 +23,6 @@
                 <field>Case_Record_Type__c</field>
             </layoutItems>
             <layoutItems>
-                <behavior>Edit</behavior>
-                <field>Case_Stage__c</field>
-            </layoutItems>
-            <layoutItems>
                 <behavior>Required</behavior>
                 <field>Risk_Assessment_Definition__c</field>
             </layoutItems>

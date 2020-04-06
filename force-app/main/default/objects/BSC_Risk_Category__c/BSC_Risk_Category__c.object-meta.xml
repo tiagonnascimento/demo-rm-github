@@ -164,7 +164,6 @@
         <searchResultsAdditionalFields>Minimum_Score__c</searchResultsAdditionalFields>
         <searchResultsAdditionalFields>Final_Message_To_Display__c</searchResultsAdditionalFields>
         <searchResultsAdditionalFields>Case_Record_Type__c</searchResultsAdditionalFields>
-        <searchResultsAdditionalFields>Case_Stage__c</searchResultsAdditionalFields>
     </searchLayouts>
     <sharingModel>ControlledByParent</sharingModel>
     <visibility>Public</visibility>
