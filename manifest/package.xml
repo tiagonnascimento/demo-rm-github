@@ -5,7 +5,7 @@
 		<members>BSC_Question__c</members>
 		<members>BSC_Risk_Assessment_Definition__c</members>
 		<members>BSC_Risk_Assessment_Section__c</members>
-		<members>Risk_Category__c</members>
+		<members>BSC_Risk_Category__c</members>
 		<name>CustomObject</name>
 	</types>
 	<types>
@@ -13,7 +13,7 @@
 		<members>BSC_Question__c</members>
 		<members>BSC_Risk_Assessment_Definition__c</members>
 		<members>BSC_Risk_Assessment_Section__c</members>
-		<members>Risk_Category__c</members>
+		<members>BSC_Risk_Category__c</members>
 		<name>CustomTab</name>
 	</types>
 	<types>
@@ -21,17 +21,12 @@
 		<members>BSC_Question__c-Question Layout</members>
 		<members>BSC_Risk_Assessment_Definition__c-Risk Assessment  Definition Layout</members>
 		<members>BSC_Risk_Assessment_Section__c-Risk Assessment Section Layout</members>
-		<members>Risk_Category__c-Risk Category Layout</members>
+		<members>BSC_Risk_Category__c-Risk Category Layout</members>
 		<name>Layout</name>
 	</types>
 	<types>
-		<members>Admin</members>
-		<members>Care Coordinator</members>
-		<members>HCCR Agent</members>
-		<members>HCCR Clinical</members>
-		<members>Pandemic Response</members>
-		<members>Patient Community Profile</members>
-		<name>Profile</name>
+		<members>BSC_PS_Standard</members>
+		<name>PermissionSet</name>
 	</types>
 	<version>48.0</version>
 </Package>
