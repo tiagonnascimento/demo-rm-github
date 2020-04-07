@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <PermissionSet xmlns="http://soap.sforce.com/2006/04/metadata">
-    <hasActivationRequired>false</hasActivationRequired>
-    <label>Brasil Sem COVID-19 - Permissões Standard</label>
     <classAccesses>
         <apexClass>RiskAssessmentFlowController</apexClass>
         <enabled>true</enabled>
@@ -29,7 +27,7 @@
     <fieldPermissions>
         <editable>false</editable>
         <field>BSC_Risk_Assessment_Section__c.Total_Questions__c</field>
-        <readable>false</readable>
+        <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
@@ -41,6 +39,8 @@
         <field>BSC_Risk_Category__c.Create_a_Case__c</field>
         <readable>true</readable>
     </fieldPermissions>
+    <hasActivationRequired>false</hasActivationRequired>
+    <label>Brasil Sem COVID-19 - Permissões Standard</label>
     <objectPermissions>
         <allowCreate>true</allowCreate>
         <allowDelete>true</allowDelete>
@@ -86,4 +86,24 @@
         <object>BSC_Risk_Category__c</object>
         <viewAllRecords>false</viewAllRecords>
     </objectPermissions>
+    <tabSettings>
+        <tab>BSC_Question_Option__c</tab>
+        <visibility>Visible</visibility>
+    </tabSettings>
+    <tabSettings>
+        <tab>BSC_Question__c</tab>
+        <visibility>Visible</visibility>
+    </tabSettings>
+    <tabSettings>
+        <tab>BSC_Risk_Assessment_Definition__c</tab>
+        <visibility>Visible</visibility>
+    </tabSettings>
+    <tabSettings>
+        <tab>BSC_Risk_Assessment_Section__c</tab>
+        <visibility>Visible</visibility>
+    </tabSettings>
+    <tabSettings>
+        <tab>BSC_Risk_Category__c</tab>
+        <visibility>Visible</visibility>
+    </tabSettings>
 </PermissionSet>
