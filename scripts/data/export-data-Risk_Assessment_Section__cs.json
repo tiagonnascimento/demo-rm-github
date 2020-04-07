@@ -2,7 +2,7 @@
     "records": [
         {
             "attributes": {
-                "type": "Risk_Assessment_Section__c",
+                "type": "BSC_Risk_Assessment_Section__c",
                 "referenceId": "Risk_Assessment_Section__cRef1"
             },
             "Risk_Assessment_Definition__c": "@Risk_Assessment_Definition__cRef1",
@@ -12,7 +12,7 @@
         },
         {
             "attributes": {
-                "type": "Risk_Assessment_Section__c",
+                "type": "BSC_Risk_Assessment_Section__c",
                 "referenceId": "Risk_Assessment_Section__cRef2"
             },
             "Risk_Assessment_Definition__c": "@Risk_Assessment_Definition__cRef1",

@@ -2,7 +2,7 @@
     "records": [
         {
             "attributes": {
-                "type": "Risk_Assessment_Definition__c",
+                "type": "BSC_Risk_Assessment_Definition__c",
                 "referenceId": "Risk_Assessment_Definition__cRef1"
             },
             "Active__c": true,

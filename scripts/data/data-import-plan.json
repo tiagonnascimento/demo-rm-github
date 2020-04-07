@@ -1,6 +1,6 @@
 [
     {
-        "sobject": "Risk_Assessment_Definition__c",
+        "sobject": "BSC_Risk_Assessment_Definition__c",
         "saveRefs": true,
         "resolveRefs": false,
         "files": [
@@ -8,7 +8,7 @@
         ]
     },
     {
-        "sobject": "Risk_Assessment_Section__c",
+        "sobject": "BSC_Risk_Assessment_Section__c",
         "saveRefs": true,
         "resolveRefs": true,
         "files": [
@@ -16,7 +16,7 @@
         ]
     },
     {
-        "sobject": "Risk_Category__c",
+        "sobject": "BSC_Risk_Category__c",
         "saveRefs": false,
         "resolveRefs": true,
         "files": [
@@ -24,7 +24,7 @@
         ]
     },
     {
-        "sobject": "Question__c",
+        "sobject": "BSC_Question__c",
         "saveRefs": true,
         "resolveRefs": true,
         "files": [
@@ -32,7 +32,7 @@
         ]
     },
     {
-        "sobject": "Question_Option__c",
+        "sobject": "BSC_Question_Option__c",
         "saveRefs": false,
         "resolveRefs": true,
         "files": [
