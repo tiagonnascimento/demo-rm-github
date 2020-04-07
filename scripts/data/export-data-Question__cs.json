@@ -22,7 +22,7 @@
             "Question_Text__c": "É obeso?",
             "Question_Type__c": "List",
             "Sequence__c": 10,
-            "Weight__c": 0,
+            "Weight__c": 1,
             "Is_Required__c": true,
             "Risk_Assessment_Section__c": "@Risk_Assessment_Section__cRef2"
         },
@@ -113,7 +113,7 @@
             "Question_Text__c": "Há quanto tempo fuma (anos)?",
             "Question_Type__c": "Number",
             "Sequence__c": 50,
-            "Weight__c": 0.5,
+            "Weight__c": 0,
             "Is_Required__c": false,
             "Is_Last_Question__c": true,
             "Risk_Assessment_Section__c": "@Risk_Assessment_Section__cRef2"

@@ -39,6 +39,8 @@ export default class RiskAssessmentFlow extends LightningElement {
             if (this.questionHandler + 1 == this.sections.data[this.sectionHandler].questions.length) {
                 this.questionHandler = -1;
             }
+        } else {
+            questionClassName = "";
         }
 
         return questionClassName;
@@ -47,7 +49,6 @@ export default class RiskAssessmentFlow extends LightningElement {
     handleChange(evt) {
         var selectedResponse;
         if (evt.target.type == 'button') {
-            this.score.set(evt.target.label, evt.target.value);
             for (let i = 0; i < evt.target.options.length; i++) {
                 if (evt.target.options[i].value == evt.target.value) {
                     selectedResponse = evt.target.options[i].label;
@@ -76,7 +77,15 @@ export default class RiskAssessmentFlow extends LightningElement {
                         }
                     }
 
-                    this.mostrarCalcularCategoriaRisco = this.sections.data[i].questions[j].isLast;
+                    if (evt.target.type == 'button') {
+                        var finalScore = parseFloat(evt.target.value) * this.sections.data[i].questions[j].weight;
+                        this.score.set(evt.target.label, finalScore);
+                    }
+                    
+                    if (!this.mostrarCalcularCategoriaRisco) {
+                        this.mostrarCalcularCategoriaRisco = this.sections.data[i].questions[j].isLast;
+                    }
+
                     
                     encontrouElemento = true;
                     break;
@@ -89,5 +98,7 @@ export default class RiskAssessmentFlow extends LightningElement {
     }
 
     handleClick(evt) {
+        console.log(this.respostas);
+        console.log(this.score);
     }
 }

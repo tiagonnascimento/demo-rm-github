@@ -86,7 +86,7 @@
                 "referenceId": "Question_Option__cRef8"
             },
             "Name": "Fumante Sim",
-            "Option_Score__c": 10,
+            "Option_Score__c": 5,
             "Option_Value__c": "Sim", 
             "Question__c": "@Question__cRef8"
         },
@@ -106,7 +106,7 @@
                 "referenceId": "Question_Option__cRef10"
             },
             "Name": "Pressao Sim",
-            "Option_Score__c": 10,
+            "Option_Score__c": 5,
             "Option_Value__c": "Sim", 
             "Question__c": "@Question__cRef10"
         },
@@ -126,7 +126,7 @@
                 "referenceId": "Question_Option__cRef12"
             },
             "Name": "Obeso Sim",
-            "Option_Score__c": 10,
+            "Option_Score__c": 5,
             "Option_Value__c": "Sim", 
             "Question__c": "@Question__cRef2"
         },
