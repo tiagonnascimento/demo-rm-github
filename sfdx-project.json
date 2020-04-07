@@ -4,8 +4,8 @@
             "path": "force-app",
             "default": true,
             "package": "brasilsemcovid19",
-            "versionName": "ver 0.1",
-            "versionNumber": "0.1.0.NEXT"
+            "versionName": "ver 0.5",
+            "versionNumber": "0.5.0.NEXT"
         }
     ],
     "namespace": "",
@@ -13,6 +13,7 @@
     "sourceApiVersion": "48.0",
     "packageAliases": {
         "brasilsemcovid19": "0Ho3h000000blOtCAI",
-        "brasilsemcovid19@0.1.0-1": "04t3h000002FfxFAAS"
+        "brasilsemcovid19@0.1.0-1": "04t3h000002FfxFAAS",
+        "brasilsemcovid19@0.5.0-1": "04t3h000002FgPKAA0"
     }
 }

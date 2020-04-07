@@ -1,12 +1,15 @@
 import { LightningElement, wire } from 'lwc';
 import getRiskAssessmentQuestionaire from '@salesforce/apex/RiskAssessmentFlowController.getRiskAssessmentQuestionaire';
+import getRiskAssessmentCategory from '@salesforce/apex/RiskAssessmentFlowController.getRiskAssessmentCategory';
 
 export default class RiskAssessmentFlow extends LightningElement {
     @wire(getRiskAssessmentQuestionaire) sections;    
+    @wire(getRiskAssessmentCategory, {score: '$scoreFinal'} ) riskCategory;
     
     mostrarCalcularCategoriaRisco = false;
     respostas = new Map();
     score = new Map();
+    scoreFinal = 0;
     sectionHandler = -1;
     questionHandler = -1;
 
@@ -97,8 +100,24 @@ export default class RiskAssessmentFlow extends LightningElement {
         }
     }
 
-    handleClick(evt) {
-        console.log(this.respostas);
-        console.log(this.score);
+    handleClickCalcular(evt) {
+        var className = this.template.querySelector('.BSC_page1').className;
+        if (className.indexOf('slds-is-expanded') != -1) {
+            className = className.substring(0, className.indexOf('slds-is-expanded')) + 'slds-is-collapsed';
+            this.template.querySelector('.BSC_page1').className = className;
+        }
+
+        for (let [k, v] of this.score) {
+            this.scoreFinal += v;
+        }
+
+        console.log('Score final: ' + this.scoreFinal);
+        console.log(this.riskCategory.data);
+
+        className = this.template.querySelector('.BSC_page2').className;
+        if (className.indexOf('slds-is-collapsed') != -1) {
+            className = className.substring(0, className.indexOf('slds-is-collapsed')) + 'slds-is-expanded';
+            this.template.querySelector('.BSC_page2').className = className;
+        }
     }
 }

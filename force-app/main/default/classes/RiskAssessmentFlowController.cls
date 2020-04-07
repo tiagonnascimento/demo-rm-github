@@ -2,6 +2,37 @@ public with sharing class RiskAssessmentFlowController {
 
     public static String HTML_ID_PREFIX = 'BS-COVID-19-';
 
+    @AuraEnabled(cacheable=true) 
+    public static Category getRiskAssessmentCategory(Double score) {
+
+        Category catR = null;
+
+        BSC_Risk_Assessment_Definition__c rad = 
+            [SELECT Id
+            FROM BSC_Risk_Assessment_Definition__c WHERE Active__c = TRUE 
+            ORDER BY Initial_Date__c DESC  
+            LIMIT 1];
+
+        List<BSC_Risk_Category__c> categories = 
+            [SELECT Id, Name, Final_Message_To_Display__c, Create_a_Case__c, Case_Record_Type__c, Minimum_Score__c
+            FROM BSC_Risk_Category__c
+            WHERE Risk_Assessment_Definition__c = :rad.Id
+            ORDER BY Minimum_Score__c DESC];
+        
+        for (BSC_Risk_Category__c cat : categories) {
+            if (catR == null && cat.Minimum_Score__c <= score) {
+                catR = new Category();
+                catR.name = cat.Name;
+                catR.caseRecordType = cat.Case_Record_Type__c;
+                catR.createACase = cat.Create_a_Case__c;
+                catR.textToDisplay = cat.Final_Message_To_Display__c;
+                break;
+            }
+        }
+        return catR;
+
+    }
+
     @AuraEnabled(cacheable=true)
     public static List<Section> getRiskAssessmentQuestionaire() {
 
@@ -118,7 +149,9 @@ public with sharing class RiskAssessmentFlowController {
     }
     
     public class Category {
-        @AuraEnabled public double minimumScore;
+        @AuraEnabled public String name;
+        @AuraEnabled public boolean createACase;
+        @AuraEnabled public String caseRecordType; 
         @AuraEnabled public String textToDisplay;
     }
     
