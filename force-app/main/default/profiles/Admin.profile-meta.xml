@@ -7,6 +7,11 @@
     <custom>false</custom>
     <fieldPermissions>
         <editable>true</editable>
+        <field>BSC_Question__c.Is_Last_Question__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
         <field>BSC_Question__c.Is_Required__c</field>
         <readable>true</readable>
     </fieldPermissions>

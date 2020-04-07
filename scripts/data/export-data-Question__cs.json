@@ -115,6 +115,7 @@
             "Sequence__c": 50,
             "Weight__c": 0.5,
             "Is_Required__c": false,
+            "Is_Last_Question__c": true,
             "Risk_Assessment_Section__c": "@Risk_Assessment_Section__cRef2"
         }
     ]

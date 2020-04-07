@@ -29,7 +29,7 @@ public with sharing class RiskAssessmentFlowController {
             sec.questions = new List<Question>();
 
             List<BSC_Question__c> questionsc = 
-                [SELECT Id, Question_Text__c, Question_Type__c, Weight__c, 
+                [SELECT Id, Question_Text__c, Question_Type__c, Weight__c, Is_Required__c, Is_Last_Question__c,
                     (Select Id, Option_Value__c, Option_Score__c FROM Question_Options__r ORDER BY Option_Score__c) 
                 FROM BSC_Question__c 
                 WHERE Risk_Assessment_Section__c = :sectionc.Id
@@ -41,6 +41,8 @@ public with sharing class RiskAssessmentFlowController {
                 qst.text = questionc.Question_Text__c;
                 qst.setType(questionc.Question_Type__c);
                 qst.weight = questionc.Weight__c;
+                qst.isRequired = questionc.Is_Required__c;
+                qst.isLast = questionc.Is_Last_Question__c;
                 qst.questionHTMLId = sec.sectionHTMLId + '-Q-' + questionNumber;
                 questionNumber += 1;
 
@@ -88,10 +90,12 @@ public with sharing class RiskAssessmentFlowController {
         @AuraEnabled public String text;
         @AuraEnabled public String type;
         @AuraEnabled public Double weight;
+        @AuraEnabled public Boolean isRequired;
         @AuraEnabled public List<Option> options;
         @AuraEnabled public Boolean isText;
         @AuraEnabled public Boolean isNumber;
         @AuraEnabled public Boolean isList;
+        @AuraEnabled public Boolean isLast;
         @AuraEnabled public String questionHTMLId;
         @AuraEnabled public String nextQuestionHTMLId;
         @AuraEnabled public String nextSectionHTMLId;

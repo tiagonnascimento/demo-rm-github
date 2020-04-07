@@ -34,6 +34,10 @@
                 <behavior>Edit</behavior>
                 <field>Is_Required__c</field>
             </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>Is_Last_Question__c</field>
+            </layoutItems>
         </layoutColumns>
         <layoutColumns/>
         <style>TwoColumnsTopToBottom</style>

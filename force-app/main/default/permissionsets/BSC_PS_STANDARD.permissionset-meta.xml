@@ -11,6 +11,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
+        <field>BSC_Question__c.Is_Last_Question__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
         <field>BSC_Risk_Assessment_Definition__c.Active__c</field>
         <readable>true</readable>
     </fieldPermissions>

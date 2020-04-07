@@ -2,8 +2,9 @@ import { LightningElement, wire } from 'lwc';
 import getRiskAssessmentQuestionaire from '@salesforce/apex/RiskAssessmentFlowController.getRiskAssessmentQuestionaire';
 
 export default class RiskAssessmentFlow extends LightningElement {
-    @wire(getRiskAssessmentQuestionaire) sections;
-
+    @wire(getRiskAssessmentQuestionaire) sections;    
+    
+    mostrarCalcularCategoriaRisco = false;
     respostas = new Map();
     score = new Map();
     sectionHandler = -1;
@@ -17,7 +18,11 @@ export default class RiskAssessmentFlow extends LightningElement {
         } else {
             sectionClassName = "slds-is-collapsed ";
         }
-        sectionClassName += this.sections.data[this.sectionHandler].sectionHTMLId;
+        if (this.sections.data[this.sectionHandler] != null) {
+            sectionClassName += this.sections.data[this.sectionHandler].sectionHTMLId;
+        } else {
+            sectionClassName = "";
+        }
         return sectionClassName;
     }
 
@@ -29,10 +34,11 @@ export default class RiskAssessmentFlow extends LightningElement {
         } else {
             questionClassName = "slds-is-collapsed ";
         }
-        questionClassName += this.sections.data[this.sectionHandler].questions[this.questionHandler].questionHTMLId;
-
-        if (this.questionHandler + 1 == this.sections.data[this.sectionHandler].questions.length) {
-            this.questionHandler = -1;
+        if (this.sections.data[this.sectionHandler] != null) {
+            questionClassName += this.sections.data[this.sectionHandler].questions[this.questionHandler].questionHTMLId;
+            if (this.questionHandler + 1 == this.sections.data[this.sectionHandler].questions.length) {
+                this.questionHandler = -1;
+            }
         }
 
         return questionClassName;
@@ -54,13 +60,14 @@ export default class RiskAssessmentFlow extends LightningElement {
 
         this.respostas.set(evt.target.label, selectedResponse);
 
+        var encontrouElemento = false;
         for (let i = 0; i < this.sections.data.length; i++) {
             for (let j = 0; j < this.sections.data[i].questions.length; j++) {
                 if (evt.target.id.indexOf(this.sections.data[i].questions[j].questionHTMLId) != -1) {
                     var nextQuestionElement = this.template.querySelector('.'+this.sections.data[i].questions[j].nextQuestionHTMLId);
                     if (nextQuestionElement != null && nextQuestionElement.className.indexOf('slds-is-expanded') == -1) {
                         nextQuestionElement.className = 'slds-is-expanded';
-                    }
+                    } 
 
                     if (j+1 == this.sections.data[i].questions.length) {
                         var nextSectionElement = this.template.querySelector('.'+this.sections.data[i].questions[j].nextSectionHTMLId);
@@ -68,9 +75,19 @@ export default class RiskAssessmentFlow extends LightningElement {
                             nextSectionElement.className = 'slds-is-expanded';
                         }
                     }
+
+                    this.mostrarCalcularCategoriaRisco = this.sections.data[i].questions[j].isLast;
+                    
+                    encontrouElemento = true;
                     break;
                 }
             }
+            if (encontrouElemento) {
+                break;
+            }
         }
+    }
+
+    handleClick(evt) {
     }
 }
