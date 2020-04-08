@@ -3,23 +3,11 @@
         {
             "attributes": {
                 "type": "BSC_Risk_Category__c",
-                "referenceId": "Risk_Category__cRef1"
-            },
-            "Case_Record_Type__c": "Admission",
-            "Final_Message_To_Display__c": "Voce vai ser contactados por profissional de saúde pelo menos 1 x ao dia por voz ou preferencialmente por video caso seja possível",
-            "Minimum_Score__c": 50,
-            "Name": "Paciente POSITIVO para COVID-19",
-            "Risk_Assessment_Definition__c": "@Risk_Assessment_Definition__cRef1",
-            "Create_a_Case__c": true
-        },
-        {
-            "attributes": {
-                "type": "BSC_Risk_Category__c",
                 "referenceId": "Risk_Category__cRef2"
             },
             "Case_Record_Type__c": "HCCR Assessment",
-            "Final_Message_To_Display__c": "Procura serviço de saúde nas próximas 6 a 12 horas para realizar avaliação médica e provável Teste para COVID-19",
-            "Minimum_Score__c": 40,
+            "Final_Message_To_Display__c": "Procure o serviço de saúde nas próximas 6 a 12 horas para realizar avaliação médica e provável teste para COVID-19",
+            "Minimum_Score__c": 30,
             "Name": "Paciente de Alto Risco",
             "Risk_Assessment_Definition__c": "@Risk_Assessment_Definition__cRef1",
             "Create_a_Case__c": true
@@ -30,19 +18,18 @@
                 "referenceId": "Risk_Category__cRef3"
             },
             "Case_Record_Type__c": "HCCR Assessment",
-            "Final_Message_To_Display__c": "Manter-se em isolamento relativo em casa, medir temperature 4 x ao dia, repetir a auto-avaliação de 2 em 2 dias.",
+            "Final_Message_To_Display__c": "Mantenha-se em isolamento relativo em casa, meça temperature 4 x ao dia e repita a auto-avaliação de 2 em 2 dias.",
             "Minimum_Score__c": 20,
             "Name": "Paciente de Médio Risco",
             "Risk_Assessment_Definition__c": "@Risk_Assessment_Definition__cRef1",
-            "Create_a_Case__c": false
+            "Create_a_Case__c": true
         },
         {
             "attributes": {
                 "type": "BSC_Risk_Category__c",
                 "referenceId": "Risk_Category__cRef4"
             },
-            "Case_Record_Type__c": "CarePlan",
-            "Final_Message_To_Display__c": "Manter-se em isolamento relativo em casa, repetir a auto-avaliação em 7 dias para saber se continua estável",
+            "Final_Message_To_Display__c": "Mantenha-se em isolamento relativo em casa, repetir a auto-avaliação em 7 dias para saber se continua estável.",
             "Minimum_Score__c": 0,
             "Name": "Paciente de Baixo Risco",
             "Risk_Assessment_Definition__c": "@Risk_Assessment_Definition__cRef1",

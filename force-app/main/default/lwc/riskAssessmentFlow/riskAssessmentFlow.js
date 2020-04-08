@@ -1,4 +1,5 @@
 import { LightningElement, wire } from 'lwc';
+import { ShowToastEvent } from 'lightning/platformShowToastEvent';
 import getRiskAssessmentQuestionaire from '@salesforce/apex/RiskAssessmentFlowController.getRiskAssessmentQuestionaire';
 import getRiskAssessmentCategory from '@salesforce/apex/RiskAssessmentFlowController.getRiskAssessmentCategory';
 
@@ -68,6 +69,28 @@ export default class RiskAssessmentFlow extends LightningElement {
         for (let i = 0; i < this.sections.data.length; i++) {
             for (let j = 0; j < this.sections.data[i].questions.length; j++) {
                 if (evt.target.id.indexOf(this.sections.data[i].questions[j].questionHTMLId) != -1) {
+
+                    if (evt.target.type == 'button') {
+                        var finalScore = parseFloat(evt.target.value) * this.sections.data[i].questions[j].weight;
+                        this.score.set(evt.target.label, finalScore);
+                    }
+                    
+                    encontrouElemento = true;
+                    break;
+                }
+            }
+            if (encontrouElemento) {
+                break;
+            }
+        }
+    }
+
+    handleFocus(evt) {
+        var encontrouElemento = false;
+        for (let i = 0; i < this.sections.data.length; i++) {
+            for (let j = 0; j < this.sections.data[i].questions.length; j++) {
+                if (evt.target.id.indexOf(this.sections.data[i].questions[j].questionHTMLId) != -1) {
+
                     var nextQuestionElement = this.template.querySelector('.'+this.sections.data[i].questions[j].nextQuestionHTMLId);
                     if (nextQuestionElement != null && nextQuestionElement.className.indexOf('slds-is-expanded') == -1) {
                         nextQuestionElement.className = 'slds-is-expanded';
@@ -80,16 +103,9 @@ export default class RiskAssessmentFlow extends LightningElement {
                         }
                     }
 
-                    if (evt.target.type == 'button') {
-                        var finalScore = parseFloat(evt.target.value) * this.sections.data[i].questions[j].weight;
-                        this.score.set(evt.target.label, finalScore);
-                    }
-                    
                     if (!this.mostrarCalcularCategoriaRisco) {
                         this.mostrarCalcularCategoriaRisco = this.sections.data[i].questions[j].isLast;
                     }
-
-                    
                     encontrouElemento = true;
                     break;
                 }
@@ -101,23 +117,41 @@ export default class RiskAssessmentFlow extends LightningElement {
     }
 
     handleClickCalcular(evt) {
-        var className = this.template.querySelector('.BSC_page1').className;
-        if (className.indexOf('slds-is-expanded') != -1) {
-            className = className.substring(0, className.indexOf('slds-is-expanded')) + 'slds-is-collapsed';
-            this.template.querySelector('.BSC_page1').className = className;
-        }
 
-        for (let [k, v] of this.score) {
-            this.scoreFinal += v;
-        }
+        var inputList = this.template.querySelectorAll(".slds-form-element");
+        var validForm = true;
+        inputList.forEach(element => {
+            validForm = validForm & element.validity.valid;
+        }); 
 
-        console.log('Score final: ' + this.scoreFinal);
-        console.log(this.riskCategory.data);
-
-        className = this.template.querySelector('.BSC_page2').className;
-        if (className.indexOf('slds-is-collapsed') != -1) {
-            className = className.substring(0, className.indexOf('slds-is-collapsed')) + 'slds-is-expanded';
-            this.template.querySelector('.BSC_page2').className = className;
+        if (!validForm) {
+            const evt = new ShowToastEvent({
+                title: 'Erro',
+                message: 'Corrija o formuário e tente novamente.',
+                variant: 'error',
+                mode: 'dismissable'
+            });
+            this.dispatchEvent(evt);
+        } else {
+            var className = this.template.querySelector('.BSC_page1').className;
+            if (className.indexOf('slds-is-expanded') != -1) {
+                className = className.substring(0, className.indexOf('slds-is-expanded')) + 'slds-is-collapsed';
+                this.template.querySelector('.BSC_page1').className = className;
+            }
+    
+            for (let [k, v] of this.score) {
+                this.scoreFinal += v;
+            }
+    
+            console.log('Score final: ' + this.scoreFinal);
+            console.log(this.riskCategory.data);
+    
+            className = this.template.querySelector('.BSC_page2').className;
+            if (className.indexOf('slds-is-collapsed') != -1) {
+                className = className.substring(0, className.indexOf('slds-is-collapsed')) + 'slds-is-expanded';
+                this.template.querySelector('.BSC_page2').className = className;
+            }
         }
+        
     }
 }

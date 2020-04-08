@@ -18,6 +18,7 @@
                                                 label={question.text} 
                                                 placeholder="Digite um texto..."
                                                 required={question.isRequired}
+                                                onfocus={handleFocus}
                                                 onchange={handleChange}>
                                             </lightning-input>
                                         </template>
@@ -29,6 +30,7 @@
                                                 placeholder="Digite um número..." 
                                                 step="0.01"
                                                 required={question.isRequired}
+                                                onfocus={handleFocus}
                                                 onchange={handleChange}>
                                             </lightning-input>
                                         </template>
@@ -39,6 +41,7 @@
                                                 label={question.text}
                                                 options={question.options}
                                                 required={question.isRequired}
+                                                onfocus={handleFocus}
                                                 onchange={handleChange}>
                                             </lightning-radio-group>
                                         </template>
@@ -71,7 +74,7 @@
                     </div>
                     <br />
                     <template if:true={riskCategory.data.createACase}>
-                        <p class="slds-text-title_caps">Você deve abrir um chamado com nossa equipe.</p>
+                        <p class="slds-text-color_error">Você deve abrir um chamado com nossa equipe.</p>
                         <br />
                         <lightning-button 
                             variant="brand" 
@@ -81,7 +84,7 @@
                             class="slds-p-top_xx-large"></lightning-button>
                     </template>
                     <template if:false={riskCategory.data.createACase}>
-                        <p class="slds-text-title_caps">Não é necessário no momento abrir um chamado com nossa equipe.</p>
+                        <p class="slds-text-color_success">Não é necessário no momento abrir um chamado com nossa equipe.</p>
                     </template>
                 </template>
             </div>
