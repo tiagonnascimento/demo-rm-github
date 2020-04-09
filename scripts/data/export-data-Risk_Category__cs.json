@@ -10,7 +10,8 @@
             "Minimum_Score__c": 30,
             "Name": "Paciente de Alto Risco",
             "Risk_Assessment_Definition__c": "@Risk_Assessment_Definition__cRef1",
-            "Create_a_Case__c": true
+            "Create_a_Case__c": true,
+            "Case_Priority__c": "High"
         },
         {
             "attributes": {
@@ -22,7 +23,8 @@
             "Minimum_Score__c": 20,
             "Name": "Paciente de Médio Risco",
             "Risk_Assessment_Definition__c": "@Risk_Assessment_Definition__cRef1",
-            "Create_a_Case__c": true
+            "Create_a_Case__c": true, 
+            "Case_Priority__c": "Medium"
         },
         {
             "attributes": {

@@ -14,7 +14,7 @@ public with sharing class RiskAssessmentFlowController {
             LIMIT 1];
 
         List<BSC_Risk_Category__c> categories = 
-            [SELECT Id, Name, Final_Message_To_Display__c, Create_a_Case__c, Case_Record_Type__c, Minimum_Score__c
+            [SELECT Id, Name, Final_Message_To_Display__c, Create_a_Case__c, Case_Record_Type__c, Minimum_Score__c, Case_Priority__c
             FROM BSC_Risk_Category__c
             WHERE Risk_Assessment_Definition__c = :rad.Id
             ORDER BY Minimum_Score__c DESC];
@@ -22,8 +22,10 @@ public with sharing class RiskAssessmentFlowController {
         for (BSC_Risk_Category__c cat : categories) {
             if (catR == null && cat.Minimum_Score__c <= score) {
                 catR = new Category();
+                catR.categoryId = cat.Id;
                 catR.name = cat.Name;
                 catR.caseRecordType = cat.Case_Record_Type__c;
+                catR.casePriority = cat.Case_Priority__c;
                 catR.createACase = cat.Create_a_Case__c;
                 catR.textToDisplay = cat.Final_Message_To_Display__c;
                 break;
@@ -130,9 +132,7 @@ public with sharing class RiskAssessmentFlowController {
         @AuraEnabled public String questionHTMLId;
         @AuraEnabled public String nextQuestionHTMLId;
         @AuraEnabled public String nextSectionHTMLId;
-
     
-
         public void setType(String type) {
             this.type = type;
             this.isText = 'Text'.equals(type);
@@ -149,10 +149,16 @@ public with sharing class RiskAssessmentFlowController {
     }
     
     public class Category {
+        @AuraEnabled public Id categoryId;
         @AuraEnabled public String name;
         @AuraEnabled public boolean createACase;
         @AuraEnabled public String caseRecordType; 
+        @AuraEnabled public String casePriority;
         @AuraEnabled public String textToDisplay;
     }
     
+    public class CreateCaseRequest {
+        @AuraEnabled public Id riskCategoryId {get; set;}
+        @AuraEnabled public String respostas{get; set;}
+    }
 }

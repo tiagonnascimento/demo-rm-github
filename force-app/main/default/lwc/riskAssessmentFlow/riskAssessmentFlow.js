@@ -1,9 +1,11 @@
 import { LightningElement, wire } from 'lwc';
 import { ShowToastEvent } from 'lightning/platformShowToastEvent';
+import { NavigationMixin } from 'lightning/navigation';
+import { encodeDefaultFieldValues } from 'lightning/pageReferenceUtils';
 import getRiskAssessmentQuestionaire from '@salesforce/apex/RiskAssessmentFlowController.getRiskAssessmentQuestionaire';
 import getRiskAssessmentCategory from '@salesforce/apex/RiskAssessmentFlowController.getRiskAssessmentCategory';
 
-export default class RiskAssessmentFlow extends LightningElement {
+export default class RiskAssessmentFlow extends NavigationMixin(LightningElement) {
     @wire(getRiskAssessmentQuestionaire) sections;    
     @wire(getRiskAssessmentCategory, {score: '$scoreFinal'} ) riskCategory;
     
@@ -14,6 +16,9 @@ export default class RiskAssessmentFlow extends LightningElement {
     sectionHandler = -1;
     questionHandler = -1;
     hasRendered = false;
+
+    message;
+    error;
 
     renderedCallback() {
         if (!this.hasRendered) {
@@ -66,6 +71,13 @@ export default class RiskAssessmentFlow extends LightningElement {
         }
         
         return questionClassName;
+    }
+
+    get hideSpinner() {
+        if (this.template.querySelector('.spinner-show') != null) {
+            this.template.querySelector('.spinner-show').className = 'spinner-hide';
+        }
+        return '';
     }
 
     handleChange(evt) {
@@ -151,6 +163,9 @@ export default class RiskAssessmentFlow extends LightningElement {
             });
             this.dispatchEvent(evt);
         } else {
+            if (this.template.querySelector('.spinner-hide') != null) {
+                this.template.querySelector('.spinner-hide').className = 'spinner-show';
+            }
             var className = this.template.querySelector('.BSC_page1').className;
             if (className.indexOf('slds-is-expanded') != -1) {
                 className = className.substring(0, className.indexOf('slds-is-expanded')) + 'slds-is-collapsed';
@@ -161,15 +176,48 @@ export default class RiskAssessmentFlow extends LightningElement {
                 this.scoreFinal += v;
             }
     
-            console.log('Score final: ' + this.scoreFinal);
-            console.log(this.riskCategory.data);
-    
             className = this.template.querySelector('.BSC_page2').className;
             if (className.indexOf('slds-is-collapsed') != -1) {
                 className = className.substring(0, className.indexOf('slds-is-collapsed')) + 'slds-is-expanded';
                 this.template.querySelector('.BSC_page2').className = className;
             }
+
+            var windowTop = parseInt(this.template.querySelector('.BSC_page2').offsetTop) - 80;
+
+            var scrollOptions = {
+                left: 0,
+                top: windowTop,
+                behavior: 'smooth'
+            }
+            window.scrollTo(scrollOptions);
         }
-        
+    }
+
+    handleClickAbrirChamado(evt) {
+
+        var description = '';
+        this.respostas.forEach(function(value, key) {
+            description += key + ': ' + value + '\n'
+        });
+
+        const defaultValues = encodeDefaultFieldValues({
+            Status: 'New',
+            Origin: 'Web-COVID',
+            Subject: 'Formulário de Análise de Risco de COVID-19: ' + this.riskCategory.data.name,
+            Priority: this.riskCategory.data.casePriority,
+            Description: description
+        });
+
+        this[NavigationMixin.Navigate]({
+            type: 'standard__objectPage',
+            attributes: {
+                objectApiName: 'Case',
+                actionName: 'new'
+            },
+            state: {
+                defaultFieldValues: defaultValues
+            }
+        });
+
     }
 }

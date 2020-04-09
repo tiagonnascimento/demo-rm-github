@@ -1,5 +1,8 @@
 <template>
     <lightning-card title="COVID-19 - Formulário de Avaliação de Riscos" icon-name="custom:custom94">
+        <div class="spinner-show">
+            <lightning-spinner alternative-text="Loading" size="medium"></lightning-spinner>
+        </div>
         <div class="BSC_page1 slds-m-around_medium slds-is-expanded">
             <div class="slds-m-around_medium">
                 <template if:true={sections.data}>
@@ -48,6 +51,7 @@
                                     </div>
                                 </div>
                             </template>
+                            <span class={hideSpinner}></span>
                         </div>
                     </template>
                     <template if:true={mostrarCalcularCategoriaRisco}>
@@ -65,6 +69,7 @@
         <div class="BSC_page2 slds-m-around_medium slds-is-collapsed">
             <div class="slds-m-around_medium">
                 <template if:true={riskCategory.data}>
+                    <span class={hideSpinner}></span>
                     <h3 class="slds-section__title slds-theme_shade">
                         <span class="slds-truncate" title="Section Title">Categoria de Risco: {riskCategory.data.name}</span>
                     </h3>

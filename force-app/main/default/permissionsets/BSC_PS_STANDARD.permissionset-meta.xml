@@ -44,6 +44,11 @@
         <field>BSC_Risk_Category__c.Create_a_Case__c</field>
         <readable>true</readable>
     </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>BSC_Risk_Category__c.Case_Priority__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
     <hasActivationRequired>false</hasActivationRequired>
     <label>Brasil Sem COVID-19 - Permissões Standard</label>
     <objectPermissions>
