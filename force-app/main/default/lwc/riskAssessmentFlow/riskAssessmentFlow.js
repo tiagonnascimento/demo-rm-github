@@ -13,40 +13,58 @@ export default class RiskAssessmentFlow extends LightningElement {
     scoreFinal = 0;
     sectionHandler = -1;
     questionHandler = -1;
+    hasRendered = false;
+
+    renderedCallback() {
+        if (!this.hasRendered) {
+            this.hasRendered = true;
+        } 
+    }
 
     get sectionClass() {
-        this.sectionHandler += 1;
         var sectionClassName;
-        if (this.sectionHandler == 0) {
-            sectionClassName = "slds-is-expanded ";
-        } else {
-            sectionClassName = "slds-is-collapsed ";
-        }
-        if (this.sections.data[this.sectionHandler] != null) {
-            sectionClassName += this.sections.data[this.sectionHandler].sectionHTMLId;
+        if (this.hasRendered) {
+            this.sectionHandler += 1;
+            if (this.sectionHandler == 0) {
+                sectionClassName = "slds-is-expanded ";
+            } else {
+                sectionClassName = "slds-is-collapsed ";
+            }
+            if (this.sections.data[this.sectionHandler] != null) {
+                sectionClassName += this.sections.data[this.sectionHandler].sectionHTMLId;
+            } else {
+                sectionClassName = "";
+            }
         } else {
             sectionClassName = "";
         }
+        
         return sectionClassName;
     }
 
     get questionClass() {
-        this.questionHandler += 1;
         var questionClassName
-        if (this.questionHandler == 0) {
-            questionClassName = "slds-is-expanded ";
-        } else {
-            questionClassName = "slds-is-collapsed ";
-        }
-        if (this.sections.data[this.sectionHandler] != null) {
-            questionClassName += this.sections.data[this.sectionHandler].questions[this.questionHandler].questionHTMLId;
-            if (this.questionHandler + 1 == this.sections.data[this.sectionHandler].questions.length) {
-                this.questionHandler = -1;
+
+        if (this.hasRendered) {
+            this.questionHandler += 1;
+            if (this.questionHandler == 0) {
+                questionClassName = "slds-is-expanded ";
+            } else {
+                questionClassName = "slds-is-collapsed ";
+            }
+            if (this.sections.data[this.sectionHandler] != null &&
+                this.sections.data[this.sectionHandler].questions[this.questionHandler] != null) {
+                questionClassName += this.sections.data[this.sectionHandler].questions[this.questionHandler].questionHTMLId;
+                if (this.questionHandler + 1 == this.sections.data[this.sectionHandler].questions.length) {
+                    this.questionHandler = -1;
+                }
+            } else {
+                questionClassName = "";
             }
         } else {
             questionClassName = "";
         }
-
+        
         return questionClassName;
     }
 
