@@ -215,7 +215,8 @@ export default class RiskAssessmentFlow extends NavigationMixin(LightningElement
                 actionName: 'new'
             },
             state: {
-                defaultFieldValues: defaultValues
+                defaultFieldValues: defaultValues,
+                recordTypeId: this.riskCategory.data.caseRecordTypeId
             }
         });
 
