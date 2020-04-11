@@ -15,59 +15,65 @@ export default class RiskAssessmentFlow extends NavigationMixin(LightningElement
     scoreFinal = 0;
     sectionHandler = -1;
     questionHandler = -1;
-    hasRendered = false;
+    hideSection = false;
+    hideQuestion = false;
+    firstSectionEval = true;
+    firstQuestionEval = true;
+    cardTitle = "";
 
     message;
     error;
 
-    renderedCallback() {
-        if (!this.hasRendered) {
-            this.hasRendered = true;
-        } 
+    get firstSection() {
+        this.firstSectionEval = true;
+        this.sectionHandler = -1;
+        return "";
     }
 
+    get notFirstSection() {
+        this.firstSectionEval = false;
+        return "";
+    }
+
+    get firstQuestion() {
+        this.firstQuestionEval = this.firstSectionEval;
+        this.questionHandler = -1;
+        return "";
+    }
+
+    get notFirstQuestion() {
+        this.firstQuestionEval = false;
+        return "";
+    }
+
+
+
     get sectionClass() {
-        var sectionClassName;
-        if (this.hasRendered) {
-            this.sectionHandler += 1;
-            if (this.sectionHandler == 0) {
-                sectionClassName = "slds-is-expanded ";
-            } else {
-                sectionClassName = "slds-is-collapsed ";
-            }
-            if (this.sections.data[this.sectionHandler] != null) {
-                sectionClassName += this.sections.data[this.sectionHandler].sectionHTMLId;
-            } else {
-                sectionClassName = "";
-            }
+        var sectionClassName = "";
+        this.sectionHandler += 1;
+        if (this.firstSectionEval) {
+            sectionClassName = "slds-is-expanded ";
         } else {
-            sectionClassName = "";
+            sectionClassName = "slds-is-collapsed ";
+        }
+        if (this.sections.data[this.sectionHandler] != null) {
+            sectionClassName += this.sections.data[this.sectionHandler].sectionHTMLId;
         }
         
         return sectionClassName;
     }
 
     get questionClass() {
-        var questionClassName
-
-        if (this.hasRendered) {
-            this.questionHandler += 1;
-            if (this.questionHandler == 0) {
-                questionClassName = "slds-is-expanded ";
-            } else {
-                questionClassName = "slds-is-collapsed ";
-            }
-            if (this.sections.data[this.sectionHandler] != null &&
-                this.sections.data[this.sectionHandler].questions[this.questionHandler] != null) {
-                questionClassName += this.sections.data[this.sectionHandler].questions[this.questionHandler].questionHTMLId;
-                if (this.questionHandler + 1 == this.sections.data[this.sectionHandler].questions.length) {
-                    this.questionHandler = -1;
-                }
-            } else {
-                questionClassName = "";
-            }
+        var questionClassName = "";
+        this.questionHandler += 1;
+        if (this.firstQuestionEval) {
+            questionClassName = "slds-is-expanded ";
         } else {
-            questionClassName = "";
+            questionClassName = "slds-is-collapsed ";
+        }
+        if (this.sections.data[this.sectionHandler] != null &&
+            this.sections.data[this.sectionHandler].questions[this.questionHandler] != null) {
+            questionClassName += this.sections.data[this.sectionHandler].questions[this.questionHandler].questionHTMLId;
         }
         
         return questionClassName;
@@ -77,7 +83,7 @@ export default class RiskAssessmentFlow extends NavigationMixin(LightningElement
         if (this.template.querySelector('.spinner-show') != null) {
             this.template.querySelector('.spinner-show').className = 'spinner-hide';
         }
-        return '';
+        return "";
     }
 
     handleChange(evt) {

@@ -24,7 +24,9 @@ public with sharing class RiskAssessmentFlowController {
                 catR = new Category();
                 catR.categoryId = cat.Id;
                 catR.name = cat.Name;
-                catR.caseRecordTypeId = Schema.SObjectType.Case.getRecordTypeInfosByName().get(cat.Case_Record_Type__c).getRecordTypeId();
+                if (Schema.SObjectType.Case.getRecordTypeInfosByName().get(cat.Case_Record_Type__c) != null) {
+                    catR.caseRecordTypeId = Schema.SObjectType.Case.getRecordTypeInfosByName().get(cat.Case_Record_Type__c).getRecordTypeId();
+                }
                 catR.casePriority = cat.Case_Priority__c;
                 catR.createACase = cat.Create_a_Case__c;
                 catR.textToDisplay = cat.Final_Message_To_Display__c;

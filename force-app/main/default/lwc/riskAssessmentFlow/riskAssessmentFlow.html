@@ -6,44 +6,56 @@
         <div class="BSC_page1 slds-m-around_medium slds-is-expanded">
             <div class="slds-m-around_medium">
                 <template if:true={sections.data}>
-                    <template for:each={sections.data} for:item="section">
-                        <div class={sectionClass} key={section.id} >
+                    <template iterator:section={sections.data}>
+                        <template if:true={section.first}>
+                            {firstSection}
+                        </template>
+                        <template if:false={section.first}>
+                            {notFirstSection}
+                        </template>
+                        <div class={sectionClass} key={section.value.id}>
                             <h3 class="slds-section__title slds-theme_shade">
-                                <span class="slds-truncate" title="Section Title">{section.text}</span>
+                                <span class="slds-truncate" title="Section Title">{section.value.text}</span>
                             </h3>
-                            <template for:each={section.questions} for:item="question">
-                                <div class={questionClass} key={question.id}>
+                            <template iterator:question={section.value.questions}>
+                                <template if:true={question.first}>
+                                    {firstQuestion}
+                                </template>
+                                <template if:false={question.first}>
+                                    {notFirstQuestion}
+                                </template>
+                                <div class={questionClass} key={question.value.id}>
                                     <div class="slds-m-around_medium">
-                                        <template if:true={question.isText}>
+                                        <template if:true={question.value.isText}>
                                             <lightning-input 
-                                                id={question.questionHTMLId}    
+                                                id={question.value.questionHTMLId}    
                                                 type="text" 
-                                                label={question.text} 
+                                                label={question.value.text} 
                                                 placeholder="Digite um texto..."
-                                                required={question.isRequired}
+                                                required={question.value.isRequired}
                                                 onfocus={handleFocus}
                                                 onchange={handleChange}>
                                             </lightning-input>
                                         </template>
-                                        <template if:true={question.isNumber}>
+                                        <template if:true={question.value.isNumber}>
                                             <lightning-input 
-                                                id={question.questionHTMLId}
+                                                id={question.value.questionHTMLId}
                                                 type="number" 
-                                                label={question.text} 
+                                                label={question.value.text} 
                                                 placeholder="Digite um número..." 
                                                 step="0.01"
-                                                required={question.isRequired}
+                                                required={question.value.isRequired}
                                                 onfocus={handleFocus}
                                                 onchange={handleChange}>
                                             </lightning-input>
                                         </template>
-                                        <template if:true={question.isList}>
+                                        <template if:true={question.value.isList}>
                                             <lightning-radio-group
-                                                id={question.questionHTMLId}    
+                                                id={question.value.questionHTMLId}    
                                                 type="button"
-                                                label={question.text}
-                                                options={question.options}
-                                                required={question.isRequired}
+                                                label={question.value.text}
+                                                options={question.value.options}
+                                                required={question.value.isRequired}
                                                 onfocus={handleFocus}
                                                 onchange={handleChange}>
                                             </lightning-radio-group>
@@ -51,9 +63,9 @@
                                     </div>
                                 </div>
                             </template>
-                            <span class={hideSpinner}></span>
                         </div>
                     </template>
+                    {hideSpinner}
                     <template if:true={mostrarCalcularCategoriaRisco}>
                         <br />
                         <lightning-button 
