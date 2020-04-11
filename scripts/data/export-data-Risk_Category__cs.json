@@ -3,7 +3,7 @@
         {
             "attributes": {
                 "type": "BSC_Risk_Category__c",
-                "referenceId": "Risk_Category__cRef2"
+                "referenceId": "BSC_Risk_Category__cRef1"
             },
             "Case_Record_Type__c": "HCCR Assessment",
             "Final_Message_To_Display__c": "Procure o serviço de saúde nas próximas 6 a 12 horas para realizar avaliação médica e provável teste para COVID-19",
@@ -16,7 +16,7 @@
         {
             "attributes": {
                 "type": "BSC_Risk_Category__c",
-                "referenceId": "Risk_Category__cRef3"
+                "referenceId": "BSC_Risk_Category__cRef2"
             },
             "Case_Record_Type__c": "HCCR Assessment",
             "Final_Message_To_Display__c": "Mantenha-se em isolamento relativo em casa, meça temperature 4 x ao dia e repita a auto-avaliação de 2 em 2 dias.",
@@ -29,13 +29,25 @@
         {
             "attributes": {
                 "type": "BSC_Risk_Category__c",
-                "referenceId": "Risk_Category__cRef4"
+                "referenceId": "BSC_Risk_Category__cRef3"
             },
             "Final_Message_To_Display__c": "Mantenha-se em isolamento relativo em casa, repetir a auto-avaliação em 7 dias para saber se continua estável.",
             "Minimum_Score__c": 0,
             "Name": "Paciente de Baixo Risco",
             "Risk_Assessment_Definition__c": "@Risk_Assessment_Definition__cRef1",
             "Create_a_Case__c": false
+        },
+        {
+            "attributes": {
+                "type": "BSC_Risk_Category__c",
+                "referenceId": "BSC_Risk_Category__cRef4"
+            },
+            "Final_Message_To_Display__c": "Os dados do caso serão atualizados com estas informações.",
+            "Minimum_Score__c": 0,
+            "Name": "Acompanhamento de Paciente",
+            "Risk_Assessment_Definition__c": "@Risk_Assessment_Definition__cRef2",
+            "Create_a_Case__c": false,
+            "Update_a_Case__c": true
         }
     ]
 }

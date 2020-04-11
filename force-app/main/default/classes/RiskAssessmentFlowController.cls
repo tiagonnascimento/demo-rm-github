@@ -38,13 +38,14 @@ public with sharing class RiskAssessmentFlowController {
     }
 
     @AuraEnabled(cacheable=true)
-    public static List<Section> getRiskAssessmentQuestionaire() {
+    public static List<Section> getRiskAssessmentQuestionaire(String defName) {
 
         List<Section> sectionList = new List<Section>();
 
         BSC_Risk_Assessment_Definition__c rad = 
             [SELECT Id
-            FROM BSC_Risk_Assessment_Definition__c WHERE Active__c = TRUE 
+            FROM BSC_Risk_Assessment_Definition__c 
+            WHERE Name = :defName AND Active__c = TRUE 
             ORDER BY Initial_Date__c DESC  
             LIMIT 1];
 

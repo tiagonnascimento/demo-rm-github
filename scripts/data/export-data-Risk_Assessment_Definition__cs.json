@@ -7,7 +7,16 @@
             },
             "Active__c": true,
             "Initial_Date__c": "2020-04-03",
-            "Name": "Initial Test Covid 19"
+            "Name": "COVID-19: Formulário de Triagem"
+        },
+        {
+            "attributes": {
+                "type": "BSC_Risk_Assessment_Definition__c",
+                "referenceId": "Risk_Assessment_Definition__cRef2"
+            },
+            "Active__c": true,
+            "Initial_Date__c": "2020-04-03",
+            "Name": " COVID 19: Acompanhamento de Pacientes"
         }
     ]
 }

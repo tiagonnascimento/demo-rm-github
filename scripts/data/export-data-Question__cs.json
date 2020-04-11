@@ -117,6 +117,48 @@
             "Is_Required__c": false,
             "Is_Last_Question__c": true,
             "Risk_Assessment_Section__c": "@Risk_Assessment_Section__cRef2"
+        },
+        {
+            "attributes": {
+                "type": "BSC_Question__c",
+                "referenceId": "Question__cRef12"
+            },
+            "Name": "Febre",
+            "Question_Text__c": "O paciente registrou febre na última medição?",
+            "Question_Type__c": "List",
+            "Sequence__c": 10,
+            "Weight__c": 0,
+            "Is_Required__c": true,
+            "Is_Last_Question__c": false,
+            "Risk_Assessment_Section__c": "@Risk_Assessment_Section__cRef3"
+        },
+        {
+            "attributes": {
+                "type": "BSC_Question__c",
+                "referenceId": "Question__cRef13"
+            },
+            "Name": "UTI",
+            "Question_Text__c": "O paciente está na UTI?",
+            "Question_Type__c": "List",
+            "Sequence__c": 20,
+            "Weight__c": 0,
+            "Is_Required__c": true,
+            "Is_Last_Question__c": false,
+            "Risk_Assessment_Section__c": "@Risk_Assessment_Section__cRef3"
+        },
+        {
+            "attributes": {
+                "type": "BSC_Question__c",
+                "referenceId": "Question__cRef14"
+            },
+            "Name": "Entubado",
+            "Question_Text__c": "O paciente está entubado?",
+            "Question_Type__c": "List",
+            "Sequence__c": 30,
+            "Weight__c": 0,
+            "Is_Required__c": true,
+            "Is_Last_Question__c": true,
+            "Risk_Assessment_Section__c": "@Risk_Assessment_Section__cRef3"
         }
     ]
 }

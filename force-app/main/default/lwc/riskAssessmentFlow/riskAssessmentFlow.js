@@ -1,4 +1,4 @@
-import { LightningElement, wire } from 'lwc';
+import { LightningElement, wire, api } from 'lwc';
 import { ShowToastEvent } from 'lightning/platformShowToastEvent';
 import { NavigationMixin } from 'lightning/navigation';
 import { encodeDefaultFieldValues } from 'lightning/pageReferenceUtils';
@@ -6,9 +6,12 @@ import getRiskAssessmentQuestionaire from '@salesforce/apex/RiskAssessmentFlowCo
 import getRiskAssessmentCategory from '@salesforce/apex/RiskAssessmentFlowController.getRiskAssessmentCategory';
 
 export default class RiskAssessmentFlow extends NavigationMixin(LightningElement) {
-    @wire(getRiskAssessmentQuestionaire) sections;    
+    @wire(getRiskAssessmentQuestionaire, {defName: '$riskAssessmentDefinitionName'}) sections;    
     @wire(getRiskAssessmentCategory, {score: '$scoreFinal'} ) riskCategory;
     
+    @api cardTitle;
+    @api riskAssessmentDefinitionName;
+
     mostrarCalcularCategoriaRisco = false;
     respostas = new Map();
     score = new Map();
@@ -19,8 +22,7 @@ export default class RiskAssessmentFlow extends NavigationMixin(LightningElement
     hideQuestion = false;
     firstSectionEval = true;
     firstQuestionEval = true;
-    cardTitle = "";
-
+    
     message;
     error;
 
