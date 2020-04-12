@@ -3,7 +3,7 @@ public with sharing class RiskAssessmentFlowController {
     public static String HTML_ID_PREFIX = 'BS-COVID-19-';
 
     @AuraEnabled(cacheable=true) 
-    public static Category getRiskAssessmentCategory(Double score) {
+    public static Category getRiskAssessmentCategory(Double score, Id idRegistro) {
 
         Category catR = null;
 
@@ -18,6 +18,11 @@ public with sharing class RiskAssessmentFlowController {
             FROM BSC_Risk_Category__c
             WHERE Risk_Assessment_Definition__c = :rad.Id
             ORDER BY Minimum_Score__c DESC];
+
+        Contact contato = null;
+        if (idRegistro != null) {
+            contato = [SELECT Name, Email, Phone FROM Contact WHERE Id = :idRegistro];
+        }
         
         for (BSC_Risk_Category__c cat : categories) {
             if (catR == null && cat.Minimum_Score__c <= score) {
@@ -30,6 +35,11 @@ public with sharing class RiskAssessmentFlowController {
                 catR.casePriority = cat.Case_Priority__c;
                 catR.createACase = cat.Create_a_Case__c;
                 catR.textToDisplay = cat.Final_Message_To_Display__c;
+                if (contato != null) {
+                    catR.nomeContato = contato.Name;
+                    catR.phone = contato.Phone;
+                    catR.email = contato.Email;
+                }
                 break;
             }
         }
@@ -158,6 +168,9 @@ public with sharing class RiskAssessmentFlowController {
         @AuraEnabled public Id caseRecordTypeId; 
         @AuraEnabled public String casePriority;
         @AuraEnabled public String textToDisplay;
+        @AuraEnabled public String nomeContato; 
+        @AuraEnabled public String email;
+        @AuraEnabled public String phone;
     }
     
     public class CreateCaseRequest {

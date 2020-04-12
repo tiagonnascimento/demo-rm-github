@@ -7,10 +7,11 @@ import getRiskAssessmentCategory from '@salesforce/apex/RiskAssessmentFlowContro
 
 export default class RiskAssessmentFlow extends NavigationMixin(LightningElement) {
     @wire(getRiskAssessmentQuestionaire, {defName: '$riskAssessmentDefinitionName'}) sections;    
-    @wire(getRiskAssessmentCategory, {score: '$scoreFinal'} ) riskCategory;
+    @wire(getRiskAssessmentCategory, {score: '$scoreFinal', idRegistro: '$recordId'} ) riskCategory;
     
     @api cardTitle;
     @api riskAssessmentDefinitionName;
+    @api recordId = null;
 
     mostrarCalcularCategoriaRisco = false;
     respostas = new Map();
@@ -202,31 +203,46 @@ export default class RiskAssessmentFlow extends NavigationMixin(LightningElement
     }
 
     handleClickAbrirChamado(evt) {
+        var inputList = this.template.querySelectorAll(".slds-form-element");
+        var validForm = true;
+        inputList.forEach(element => {
+            validForm = validForm & element.validity.valid;
+        }); 
 
-        var description = '';
-        this.respostas.forEach(function(value, key) {
-            description += key + ': ' + value + '\n'
-        });
+        if (!validForm) {
+            const evt = new ShowToastEvent({
+                title: 'Erro',
+                message: 'Corrija o formuário e tente novamente.',
+                variant: 'error',
+                mode: 'dismissable'
+            });
+            this.dispatchEvent(evt);
+        } else {
 
-        const defaultValues = encodeDefaultFieldValues({
-            Status: 'New',
-            Origin: 'Web-COVID',
-            Subject: 'Formulário de Análise de Risco de COVID-19: ' + this.riskCategory.data.name,
-            Priority: this.riskCategory.data.casePriority,
-            Description: description
-        });
+            var description = '';
+            this.respostas.forEach(function(value, key) {
+                description += key + ': ' + value + '\n'
+            });
 
-        this[NavigationMixin.Navigate]({
-            type: 'standard__objectPage',
-            attributes: {
-                objectApiName: 'Case',
-                actionName: 'new'
-            },
-            state: {
-                defaultFieldValues: defaultValues,
-                recordTypeId: this.riskCategory.data.caseRecordTypeId
-            }
-        });
+            const defaultValues = encodeDefaultFieldValues({
+                Status: 'New',
+                Origin: 'Web-COVID',
+                Subject: 'Formulário de Análise de Risco de COVID-19: ' + this.riskCategory.data.name,
+                Priority: this.riskCategory.data.casePriority,
+                Description: description
+            });
 
+            this[NavigationMixin.Navigate]({
+                type: 'standard__objectPage',
+                attributes: {
+                    objectApiName: 'Case',
+                    actionName: 'new'
+                },
+                state: {
+                    defaultFieldValues: defaultValues,
+                    recordTypeId: this.riskCategory.data.caseRecordTypeId
+                }
+            });
+        }
     }
 }
