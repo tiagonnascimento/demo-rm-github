@@ -6,75 +6,65 @@ public with sharing class RiskAssessmentFlowController {
     public static String createUpdateCase(CreateCaseRequest request) {
 
         BSC_Risk_Category__c categoria = 
-            [SELECT Id, Name, Case_Record_Type__c, Case_Priority__c
+            [SELECT Id, Name, Case_Record_Type__c, Case_Priority__c, Create_a_Case__c
             FROM BSC_Risk_Category__c
             WHERE Id = :request.riskCategoryId];
 
-        
-        Contact contato = null;
-        try {
-            contato = [Select Id, FirstName, LastName, Phone, Email from Contact WHERE Phone = :request.phone];
-        } catch (QueryException ex) {
-            // não faz nada, contato não existe
-        }
-         
-        if (contato == null) {
-            contato = new Contact();
-        }
+        Id objectId = null;
 
-        if (request.nomeContato.contains(' ')) {
-            String[] nomes = request.nomeContato.split(' ');
-            contato.FirstName = nomes[0];
-            String nome = '';
-            for (Integer i = 0; i < nomes.size(); i++) {
-                if (i != 0) {
-                    nome += nomes[i] + ' ';
-                }
+        if (categoria.Create_a_Case__c) {
+
+            Account acct = null;
+            try {
+                acct = [Select Id, Name, Phone, PersonEmail from Account WHERE Phone = :request.phone];
+            } catch (QueryException ex) {
+                // não faz nada, contato não existe
             }
-            nome = nome.trim();
-            contato.LastName = nome;
-        } else {
-            contato.LastName = request.nomeContato;
+            
+            if (acct == null) {
+                acct = new Account();
+            }
+
+            acct.Name = request.nomeContato;
+            acct.Phone = request.phone;
+            acct.PersonEmail = request.email;
+
+            if (acct.Id != null) {
+                update acct;
+            } else {
+                insert acct; 
+            }
+            
+            Case caso = new Case();
+            caso.Status = 'New';
+            caso.Origin = 'Web-COVID19';
+            caso.Subject = 'Formulário de Análise de Risco de COVID-19 - Paciente:  ' 
+                            + request.nomeContato + ' Categoria de Risco: ' + categoria.Name;
+            caso.Priority = categoria.Case_Priority__c;
+            caso.Description = request.respostas;
+            caso.AccountId = acct.Id;
+
+            // TODO: Remover comentários abaixo.
+            // O trecho abaixo está comentado porque não é possível criar um Unlocked Package com ele, já que 
+            // o processo de validação de metadados falha, não reconhecendo o Case.RecordTypeId como uma variável 
+            // válida. Isto fará com que o caso criado seja o padrão da plataforma, e não o especificado na categoria
+            // de risco. Como este código faz parte de um unlocked package, basta descomentar as linhas abaixo e
+            // o componente voltará a funcionar como esperado. Acredito que tenha a ver com o Known Issue abaixo:
+            // https://success.salesforce.com/issues_view?id=a1p3A000000ATmUQAW&title=error-deploying-compact-layouts-in-field-recordtypeid-no-customfield-named-account-recordtypeid-found
+            // Pode ter certeza que eu tentei - acredito que gastei mais de 2 horas neste ponto e não saí do lugar. 
+
+            // if (categoria.Case_Record_Type__c != null 
+            //     && Schema.SObjectType.Case.getRecordTypeInfosByName().get(categoria.Case_Record_Type__c) != null) {
+
+            //         caso.RecordTypeId = Schema.SObjectType.Case.getRecordTypeInfosByName().get(categoria.Case_Record_Type__c).getRecordTypeId();
+            // }
+
+            insert caso;
+
+            objectId = caso.Id;
         }
 
-        contato.Phone = request.phone;
-        contato.Email = request.email;
-
-        if (contato.Id != null) {
-            update contato;
-        } else {
-            upsert contato Contact.Email; 
-        }
-        
-        Case caso = new Case();
-        caso.Status = 'New';
-        caso.Origin = 'Web-COVID19';
-        caso.Subject = 'Formulário de Análise de Risco de COVID-19 - Paciente:  ' 
-                        + request.nomeContato + ' Categoria de Risco: ' + categoria.Name;
-        caso.Priority = categoria.Case_Priority__c;
-        caso.Description = request.respostas;
-        caso.ContactId = contato.Id;
-
-
-
-        // TODO: Remover comentários abaixo.
-        // O trecho abaixo está comentado porque não é possível criar um Unlocked Package com ele, já que 
-        // o processo de validação de metadados falha, não reconhecendo o Case.RecordTypeId como uma variável 
-        // válida. Isto fará com que o caso criado seja o padrão da plataforma, e não o especificado na categoria
-        // de risco. Como este código faz parte de um unlocked package, basta descomentar as linhas abaixo e
-        // o componente voltará a funcionar como esperado. Acredito que tenha a ver com o Known Issue abaixo:
-        // https://success.salesforce.com/issues_view?id=a1p3A000000ATmUQAW&title=error-deploying-compact-layouts-in-field-recordtypeid-no-customfield-named-account-recordtypeid-found
-        // Pode ter certeza que eu tentei - acredito que gastei mais de 2 horas neste ponto e não saí do lugar. 
-
-        // if (categoria.Case_Record_Type__c != null 
-        //     && Schema.SObjectType.Case.getRecordTypeInfosByName().get(categoria.Case_Record_Type__c) != null) {
-
-        //         caso.RecordTypeId = Schema.SObjectType.Case.getRecordTypeInfosByName().get(categoria.Case_Record_Type__c).getRecordTypeId();
-        // }
-
-        insert caso;
-
-        return caso.Id;
+        return objectId;
     }
 
     @AuraEnabled(cacheable=true) 
@@ -94,9 +84,10 @@ public with sharing class RiskAssessmentFlowController {
             WHERE Risk_Assessment_Definition__c = :rad.Id
             ORDER BY Minimum_Score__c DESC];
 
-        Contact contato = null;
-        if (idRegistro != null) {
-            contato = [SELECT Name, Email, Phone FROM Contact WHERE Id = :idRegistro];
+        
+        Account acct = null;
+        if (idRegistro != null && 'Account'.equals(idRegistro.getSObjectType().getDescribe().getName())) {
+            acct = [SELECT Name, PersonEmail, Phone FROM Account WHERE Id = :idRegistro];
         }
         
         for (BSC_Risk_Category__c cat : categories) {
@@ -110,10 +101,10 @@ public with sharing class RiskAssessmentFlowController {
                 catR.casePriority = cat.Case_Priority__c;
                 catR.createACase = cat.Create_a_Case__c;
                 catR.textToDisplay = cat.Final_Message_To_Display__c;
-                if (contato != null) {
-                    catR.nomeContato = contato.Name;
-                    catR.phone = contato.Phone;
-                    catR.email = contato.Email;
+                if (acct != null) {
+                    catR.nomeContato = acct.Name;
+                    catR.phone = acct.Phone;
+                    catR.email = acct.PersonEmail;
                 }
                 break;
             }

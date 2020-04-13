@@ -3,8 +3,8 @@
         {
             "path": "force-app",
             "package": "brasilsemcovid-19",
-            "versionName": "ver 0.9.9",
-            "versionNumber": "0.9.9.NEXT",
+            "versionName": "ver 0.9.10",
+            "versionNumber": "0.9.10.NEXT",
             "default": true
         }
     ],
@@ -14,6 +14,7 @@
     "packageAliases": {
         "brasilsemcovid-19": "0Ho6g0000004CyhCAE",
         "brasilsemcovid-19@0.1.0-1": "04t6g000008f5ULAAY",
-        "brasilsemcovid-19@0.9.9-1": "04t6g000008f5UQAAY"
+        "brasilsemcovid-19@0.9.9-1": "04t6g000008f5UQAAY",
+        "brasilsemcovid-19@0.9.10-1": "04t6g000008f5UVAAY"
     }
 }
