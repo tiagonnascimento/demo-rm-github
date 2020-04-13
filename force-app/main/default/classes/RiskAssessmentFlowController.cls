@@ -54,11 +54,23 @@ public with sharing class RiskAssessmentFlowController {
         caso.Priority = categoria.Case_Priority__c;
         caso.Description = request.respostas;
         caso.ContactId = contato.Id;
-        if (categoria.Case_Record_Type__c != null 
-            && Schema.SObjectType.Case.getRecordTypeInfosByName().get(categoria.Case_Record_Type__c) != null) {
 
-                caso.RecordTypeId = Schema.SObjectType.Case.getRecordTypeInfosByName().get(categoria.Case_Record_Type__c).getRecordTypeId();
-        }
+
+
+        // TODO: Remover comentários abaixo.
+        // O trecho abaixo está comentado porque não é possível criar um Unlocked Package com ele, já que 
+        // o processo de validação de metadados falha, não reconhecendo o Case.RecordTypeId como uma variável 
+        // válida. Isto fará com que o caso criado seja o padrão da plataforma, e não o especificado na categoria
+        // de risco. Como este código faz parte de um unlocked package, basta descomentar as linhas abaixo e
+        // o componente voltará a funcionar como esperado. Acredito que tenha a ver com o Known Issue abaixo:
+        // https://success.salesforce.com/issues_view?id=a1p3A000000ATmUQAW&title=error-deploying-compact-layouts-in-field-recordtypeid-no-customfield-named-account-recordtypeid-found
+        // Pode ter certeza que eu tentei - acredito que gastei mais de 2 horas neste ponto e não saí do lugar. 
+
+        // if (categoria.Case_Record_Type__c != null 
+        //     && Schema.SObjectType.Case.getRecordTypeInfosByName().get(categoria.Case_Record_Type__c) != null) {
+
+        //         caso.RecordTypeId = Schema.SObjectType.Case.getRecordTypeInfosByName().get(categoria.Case_Record_Type__c).getRecordTypeId();
+        // }
 
         insert caso;
 

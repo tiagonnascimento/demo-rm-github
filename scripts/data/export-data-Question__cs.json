@@ -157,8 +157,23 @@
             "Sequence__c": 30,
             "Weight__c": 0,
             "Is_Required__c": true,
+            "Is_Last_Question__c": false,
+            "Risk_Assessment_Section__c": "@Risk_Assessment_Section__cRef3"
+        },
+        {
+            "attributes": {
+                "type": "BSC_Question__c",
+                "referenceId": "Question__cRef15"
+            },
+            "Name": "Comentários Gerais",
+            "Question_Text__c": "Comentários Gerais",
+            "Question_Type__c": "Text",
+            "Sequence__c": 30,
+            "Weight__c": 0,
+            "Is_Required__c": false,
             "Is_Last_Question__c": true,
             "Risk_Assessment_Section__c": "@Risk_Assessment_Section__cRef3"
         }
+        
     ]
 }

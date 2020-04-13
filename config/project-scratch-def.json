@@ -1,7 +1,7 @@
 {
   "orgName": "Salesforce CSG",
   "edition": "Developer",
-  "features": ["Communities", "ForceComPlatform", "PersonAccounts"],
+  "features": ["ServiceCloud", "ServiceUser", "RecordTypes", "Communities", "ForceComPlatform", "PersonAccounts"],
   "settings": {
     "communitiesSettings": {
       "enableNetworksEnabled": true
