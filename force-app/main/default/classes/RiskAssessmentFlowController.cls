@@ -28,6 +28,8 @@ public with sharing class RiskAssessmentFlowController {
             acct.Name = request.nomeContato;
             acct.Phone = request.phone;
             acct.PersonEmail = request.email;
+            acct.put('RecordTypeId', Schema.SObjectType.Account.getRecordTypeInfosByDeveloperName().get('PersonAccount').getRecordTypeId());
+
 
             if (acct.Id != null) {
                 update acct;
@@ -53,11 +55,11 @@ public with sharing class RiskAssessmentFlowController {
             // https://success.salesforce.com/issues_view?id=a1p3A000000ATmUQAW&title=error-deploying-compact-layouts-in-field-recordtypeid-no-customfield-named-account-recordtypeid-found
             // Pode ter certeza que eu tentei - acredito que gastei mais de 2 horas neste ponto e não saí do lugar. 
 
-            // if (categoria.Case_Record_Type__c != null 
-            //     && Schema.SObjectType.Case.getRecordTypeInfosByName().get(categoria.Case_Record_Type__c) != null) {
+            if (categoria.Case_Record_Type__c != null 
+                && Schema.SObjectType.Case.getRecordTypeInfosByName().get(categoria.Case_Record_Type__c) != null) {
 
-            //         caso.RecordTypeId = Schema.SObjectType.Case.getRecordTypeInfosByName().get(categoria.Case_Record_Type__c).getRecordTypeId();
-            // }
+                    caso.put('RecordTypeId', Schema.SObjectType.Case.getRecordTypeInfosByName().get(categoria.Case_Record_Type__c).getRecordTypeId());
+            }
 
             insert caso;
 
