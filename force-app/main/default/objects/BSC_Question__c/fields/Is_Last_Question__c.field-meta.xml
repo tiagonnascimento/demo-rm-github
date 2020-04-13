@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Is_Last_Question__c</fullName>
+    <defaultValue>false</defaultValue>
+    <description>Check whether this is the last question of the form. Whenever the form finds the last question it will show the operation button.</description>
+    <externalId>false</externalId>
+    <label>Is Last Question</label>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

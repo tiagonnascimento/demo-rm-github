@@ -1,3 +1,137 @@
 <template>
-    
+    <lightning-card title={cardTitle} icon-name="custom:custom94">
+        <div class="spinner-show">
+            <lightning-spinner alternative-text="Loading" size="medium"></lightning-spinner>
+        </div>
+        <div class="BSC_page1 slds-m-around_medium slds-is-expanded">
+            <div class="slds-m-around_medium">
+                <template if:true={sections.data}>
+                    <template iterator:section={sections.data}>
+                        <template if:true={section.first}>
+                            {firstSection}
+                        </template>
+                        <template if:false={section.first}>
+                            {notFirstSection}
+                        </template>
+                        <div class={sectionClass} key={section.value.id}>
+                            <h3 class="slds-section__title slds-theme_shade">
+                                <span class="slds-truncate" title="Section Title">{section.value.text}</span>
+                            </h3>
+                            <template iterator:question={section.value.questions}>
+                                <template if:true={question.first}>
+                                    {firstQuestion}
+                                </template>
+                                <template if:false={question.first}>
+                                    {notFirstQuestion}
+                                </template>
+                                <div class={questionClass} key={question.value.id}>
+                                    <div class="slds-m-around_medium">
+                                        <template if:true={question.value.isText}>
+                                            <lightning-input 
+                                                id={question.value.questionHTMLId}    
+                                                type="text" 
+                                                label={question.value.text} 
+                                                placeholder="Digite um texto..."
+                                                required={question.value.isRequired}
+                                                onfocus={handleFocus}
+                                                onchange={handleChange}>
+                                            </lightning-input>
+                                        </template>
+                                        <template if:true={question.value.isNumber}>
+                                            <lightning-input 
+                                                id={question.value.questionHTMLId}
+                                                type="number" 
+                                                label={question.value.text} 
+                                                placeholder="Digite um número..." 
+                                                step="0.01"
+                                                required={question.value.isRequired}
+                                                onfocus={handleFocus}
+                                                onchange={handleChange}>
+                                            </lightning-input>
+                                        </template>
+                                        <template if:true={question.value.isList}>
+                                            <lightning-radio-group
+                                                id={question.value.questionHTMLId}    
+                                                type="button"
+                                                label={question.value.text}
+                                                options={question.value.options}
+                                                required={question.value.isRequired}
+                                                onfocus={handleFocus}
+                                                onchange={handleChange}>
+                                            </lightning-radio-group>
+                                        </template>
+                                    </div>
+                                </div>
+                            </template>
+                        </div>
+                    </template>
+                    {hideSpinner}
+                    <template if:true={mostrarCalcularCategoriaRisco}>
+                        <br />
+                        <lightning-button 
+                            variant="brand" 
+                            label="Calcular categoria de risco" 
+                            title="Calcular categoria de risco" 
+                            onclick={handleClickCalcular} 
+                            class="slds-m-left_x-small slds-p-top_xx-large"></lightning-button>
+                    </template>
+                </template>
+            </div>
+        </div>
+        <div class="BSC_page2 slds-m-around_medium slds-is-collapsed">
+            <div class="slds-m-around_medium">
+                <template if:true={riskCategory.data}>
+                    {hideSpinner}
+                    <h3 class="slds-section__title slds-theme_shade">
+                        <span class="slds-truncate" title="Section Title">Categoria de Risco: {riskCategory.data.name}</span>
+                    </h3>
+                    <br />
+                    <div class="slds-box">
+                        <p class="slds-text-title_caps">{riskCategory.data.textToDisplay}</p>
+                    </div>
+                    <br />
+                    <template if:true={riskCategory.data.createACase}>
+                        <p class="slds-text-color_error">Você deve abrir um chamado com nossa equipe. Por favor preencha e/ou confira o formulário abaixo.</p>
+                        <br />
+                        <lightning-input 
+                            name="nomeContato"
+                            type="text" 
+                            label="Nome do Paciente"
+                            value={riskCategory.data.nomeContato}
+                            onchange={handleContactFieldsChanges}
+                            required>
+                        </lightning-input>
+                        <lightning-input 
+                            name="telefoneContato"
+                            type="tel" 
+                            label="Telefone" 
+                            value={riskCategory.data.phone}
+                            placeholder="Utilize o padrão XX-XXXXX-XXXX ou XX-XXXX-XXXX"
+                            pattern="([0-9]{2})-[0-9]{4,5}-[0-9]{4}"
+                            onchange={handleContactFieldsChanges}
+                            required>
+                        </lightning-input>
+                        <lightning-input 
+                            name="emailContato"
+                            type="email" 
+                            label="E-mail" 
+                            value={riskCategory.data.email}
+                            onchange={handleContactFieldsChanges}
+                            required>
+                        </lightning-input>
+                        <br /> 
+                        <lightning-button 
+                            variant="brand" 
+                            label="Abrir chamado" 
+                            title="Abrir chamado" 
+                            onclick={handleClickAbrirChamado} 
+                            class="slds-p-top_xx-large"></lightning-button>
+                    </template>
+                    <template if:false={riskCategory.data.createACase}>
+                        <p class="slds-text-color_success">Não é necessário no momento abrir um chamado com nossa equipe.</p>
+                    </template>
+                </template>
+            </div>
+        </div>
+    </lightning-card>
 </template>

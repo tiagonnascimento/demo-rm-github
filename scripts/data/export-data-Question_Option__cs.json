@@ -2,124 +2,203 @@
     "records": [
         {
             "attributes": {
-                "type": "Question_Option__c",
-                "referenceId": "Question_Option__cRef1"
+                "type": "BSC_Question_Option__c",
+                "referenceId": "BSC_Question_Option__cRef1"
             },
-            "Finish_Section__c": false,
-            "Name": "Yes",
+            "Name": "Febre Sim",
             "Option_Score__c": 10,
-            "Option_Value__c": "Yes", 
+            "Option_Value__c": "Sim", 
             "Question__c": "@Question__cRef1"
         },
         {
             "attributes": {
-                "type": "Question_Option__c",
-                "referenceId": "Question_Option__cRef2"
+                "type": "BSC_Question_Option__c",
+                "referenceId": "BSC_Question_Option__cRef2"
             },
-            "Finish_Section__c": false,
-            "Name": "Tosse Yes",
-            "Option_Score__c": 15,
-            "Option_Value__c": "Yes", 
+            "Name": "Febre Não",
+            "Option_Score__c": 0,
+            "Option_Value__c": "Não", 
+            "Question__c": "@Question__cRef1"
+        },
+        {
+            "attributes": {
+                "type": "BSC_Question_Option__c",
+                "referenceId": "BSC_Question_Option__cRef3"
+            },
+            "Name": "Tosse Sim",
+            "Option_Score__c": 10,
+            "Option_Value__c": "Sim", 
             "Question__c": "@Question__cRef6"
         },
         {
             "attributes": {
-                "type": "Question_Option__c",
-                "referenceId": "Question_Option__cRef3"
+                "type": "BSC_Question_Option__c",
+                "referenceId": "BSC_Question_Option__cRef4"
             },
-            "Finish_Section__c": false,
-            "Name": "Intensa",
-            "Option_Score__c": 3,
-            "Option_Value__c": "Intensa", 
+            "Name": "Tosse Não",
+            "Option_Score__c": 0,
+            "Option_Value__c": "Não", 
+            "Question__c": "@Question__cRef6"
+        },
+        {
+            "attributes": {
+                "type": "BSC_Question_Option__c",
+                "referenceId": "BSC_Question_Option__cRef5"
+            },
+            "Name": "Dificuldade Não",
+            "Option_Score__c": 0,
+            "Option_Value__c": "Não", 
             "Question__c": "@Question__cRef7"
         },
         {
             "attributes": {
-                "type": "Question_Option__c",
-                "referenceId": "Question_Option__cRef4"
+                "type": "BSC_Question_Option__c",
+                "referenceId": "BSC_Question_Option__cRef6"
             },
-            "Finish_Section__c": false,
             "Name": "Leve",
-            "Option_Score__c": 0.5,
+            "Option_Score__c": 5,
             "Option_Value__c": "Leve", 
             "Question__c": "@Question__cRef7"
         },
         {
             "attributes": {
-                "type": "Question_Option__c",
-                "referenceId": "Question_Option__cRef5"
+                "type": "BSC_Question_Option__c",
+                "referenceId": "BSC_Question_Option__cRef7"
             },
-            "Finish_Section__c": false,
-            "Name": "No",
-            "Option_Score__c": 0,
-            "Option_Value__c": "No", 
-            "Question__c": "@Question__cRef1"
-        },
-        {
-            "attributes": {
-                "type": "Question_Option__c",
-                "referenceId": "Question_Option__cRef6"
-            },
-            "Finish_Section__c": false,
-            "Name": "Tosse No",
-            "Option_Score__c": 0,
-            "Option_Value__c": "No", 
-            "Question__c": "@Question__cRef6"
-        },
-        {
-            "attributes": {
-                "type": "Question_Option__c",
-                "referenceId": "Question_Option__cRef7"
-            },
-            "Finish_Section__c": false,
             "Name": "Moderada",
-            "Option_Score__c": 1,
+            "Option_Score__c": 10,
             "Option_Value__c": "Moderada", 
             "Question__c": "@Question__cRef7"
         },
         {
             "attributes": {
-                "type": "Question_Option__c",
-                "referenceId": "Question_Option__cRef8"
+                "type": "BSC_Question_Option__c",
+                "referenceId": "BSC_Question_Option__cRef8"
             },
-            "Finish_Section__c": true,
-            "Name": "Fumante No",
-            "Option_Score__c": 0,
-            "Option_Value__c": "No", 
+            "Name": "Intensa",
+            "Option_Score__c": 20,
+            "Option_Value__c": "Intensa", 
+            "Question__c": "@Question__cRef7"
+        },
+        {
+            "attributes": {
+                "type": "BSC_Question_Option__c",
+                "referenceId": "BSC_Question_Option__cRef9"
+            },
+            "Name": "Fumante Sim",
+            "Option_Score__c": 5,
+            "Option_Value__c": "Sim", 
             "Question__c": "@Question__cRef8"
         },
         {
             "attributes": {
-                "type": "Question_Option__c",
-                "referenceId": "Question_Option__cRef9"
+                "type": "BSC_Question_Option__c",
+                "referenceId": "BSC_Question_Option__cRef10"
             },
-            "Finish_Section__c": false,
-            "Name": "Fumante Yes",
+            "Name": "Fumante Não",
             "Option_Score__c": 0,
-            "Option_Value__c": "Yes", 
+            "Option_Value__c": "Não", 
             "Question__c": "@Question__cRef8"
         },
         {
             "attributes": {
-                "type": "Question_Option__c",
-                "referenceId": "Question_Option__cRef10"
+                "type": "BSC_Question_Option__c",
+                "referenceId": "BSC_Question_Option__cRef11"
             },
-            "Finish_Section__c": false,
-            "Name": "Pressao Yes",
-            "Option_Score__c": 10,
-            "Option_Value__c": "Yes", 
+            "Name": "Pressao Sim",
+            "Option_Score__c": 5,
+            "Option_Value__c": "Sim", 
             "Question__c": "@Question__cRef10"
         },
         {
             "attributes": {
-                "type": "Question_Option__c",
-                "referenceId": "Question_Option__cRef11"
+                "type": "BSC_Question_Option__c",
+                "referenceId": "BSC_Question_Option__cRef12"
             },
-            "Finish_Section__c": false,
-            "Name": "Pressao No",
+            "Name": "Pressao Não",
             "Option_Score__c": 0,
-            "Option_Value__c": "No", 
+            "Option_Value__c": "Não", 
             "Question__c": "@Question__cRef10"
+        },
+        {
+            "attributes": {
+                "type": "BSC_Question_Option__c",
+                "referenceId": "BSC_Question_Option__cRef13"
+            },
+            "Name": "Obeso Sim",
+            "Option_Score__c": 5,
+            "Option_Value__c": "Sim", 
+            "Question__c": "@Question__cRef2"
+        },
+        {
+            "attributes": {
+                "type": "BSC_Question_Option__c",
+                "referenceId": "BSC_Question_Option__cRef14"
+            },
+            "Name": "Obeso Não",
+            "Option_Score__c": 0,
+            "Option_Value__c": "Não", 
+            "Question__c": "@Question__cRef2"
+        },
+        {
+            "attributes": {
+                "type": "BSC_Question_Option__c",
+                "referenceId": "BSC_Question_Option__cRef15"            
+            },
+            "Name": "Febre Acompanhamento Sim",
+            "Option_Score__c": 0,
+            "Option_Value__c": "Sim", 
+            "Question__c": "@Question__cRef12"
+        },
+        {
+            "attributes": {
+                "type": "BSC_Question_Option__c",
+                "referenceId": "BSC_Question_Option__cRef16"            
+            },
+            "Name": "Febre Acompanhamento Não",
+            "Option_Score__c": 0,
+            "Option_Value__c": "Não", 
+            "Question__c": "@Question__cRef12"
+        },
+        {
+            "attributes": {
+                "type": "BSC_Question_Option__c",
+                "referenceId": "BSC_Question_Option__cRef17"            
+            },
+            "Name": "UTI Acompanhamento Sim",
+            "Option_Score__c": 0,
+            "Option_Value__c": "Sim", 
+            "Question__c": "@Question__cRef13"
+        },
+        {
+            "attributes": {
+                "type": "BSC_Question_Option__c",
+                "referenceId": "BSC_Question_Option__cRef18"            
+            },
+            "Name": "UTI Acompanhamento Não",
+            "Option_Score__c": 0,
+            "Option_Value__c": "Não", 
+            "Question__c": "@Question__cRef13"
+        },
+        {
+            "attributes": {
+                "type": "BSC_Question_Option__c",
+                "referenceId": "BSC_Question_Option__cRef19"            
+            },
+            "Name": "Entubado Acompanhamento Sim",
+            "Option_Score__c": 0,
+            "Option_Value__c": "Sim", 
+            "Question__c": "@Question__cRef14"
+        },
+        {
+            "attributes": {
+                "type": "BSC_Question_Option__c",
+                "referenceId": "BSC_Question_Option__cRef20"            
+            },
+            "Name": "Entubado Acompanhamento Não",
+            "Option_Score__c": 0,
+            "Option_Value__c": "Não", 
+            "Question__c": "@Question__cRef14"
         }
     ]
 }

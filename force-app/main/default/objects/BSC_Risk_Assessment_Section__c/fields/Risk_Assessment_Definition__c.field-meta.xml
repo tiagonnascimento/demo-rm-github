@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Risk_Assessment_Definition__c</fullName>
+    <deprecated>false</deprecated>
+    <externalId>false</externalId>
+    <label>Risk Assessment  Definition</label>
+    <referenceTo>BSC_Risk_Assessment_Definition__c</referenceTo>
+    <relationshipLabel>Risk Assessment Section</relationshipLabel>
+    <relationshipName>Risk_Assessment_Section</relationshipName>
+    <relationshipOrder>0</relationshipOrder>
+    <reparentableMasterDetail>true</reparentableMasterDetail>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackTrending>false</trackTrending>
+    <type>MasterDetail</type>
+    <writeRequiresMasterRead>false</writeRequiresMasterRead>
+</CustomField>

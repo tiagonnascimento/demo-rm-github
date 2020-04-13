@@ -1,5 +1,10 @@
 {
-  "orgName": "tnascimento company",
+  "orgName": "Salesforce CSG",
   "edition": "Developer",
-  "features": []
+  "features": ["ServiceCloud", "ServiceUser", "RecordTypes", "Communities", "ForceComPlatform", "PersonAccounts"],
+  "settings": {
+    "communitiesSettings": {
+      "enableNetworksEnabled": true
+    }
+  }
 }

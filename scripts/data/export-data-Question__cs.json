@@ -2,135 +2,178 @@
     "records": [
         {
             "attributes": {
-                "type": "Question__c",
+                "type": "BSC_Question__c",
                 "referenceId": "Question__cRef1"
             },
             "Name": "Febre (acima de 37,8)?",
-            "Question_Text__c": "Febre (acima de 37,8)?",
-            "Question_Type__c": "Yes/No",
+            "Question_Text__c": "Está com febre (acima de 37,8˚)?",
+            "Question_Type__c": "List",
             "Sequence__c": 10,
             "Weight__c": 1,
+            "Is_Required__c": true,
             "Risk_Assessment_Section__c": "@Risk_Assessment_Section__cRef1"
         },
         {
             "attributes": {
-                "type": "Question__c",
+                "type": "BSC_Question__c",
                 "referenceId": "Question__cRef2"
             },
-            "Name": "IMC",
-            "Question_Text__c": "IMC",
-            "Question_Type__c": "Calculated",
-            "Sequence__c": 30,
-            "Weight__c": 0.5,
+            "Name": "É Obeso",
+            "Question_Text__c": "É obeso?",
+            "Question_Type__c": "List",
+            "Sequence__c": 10,
+            "Weight__c": 1,
+            "Is_Required__c": true,
             "Risk_Assessment_Section__c": "@Risk_Assessment_Section__cRef2"
         },
         {
             "attributes": {
-                "type": "Question__c",
+                "type": "BSC_Question__c",
                 "referenceId": "Question__cRef3"
             },
             "Name": "Peso",
-            "Question_Text__c": "Peso em Kgs",
+            "Question_Text__c": "Qual o seu peso (kg)?",
             "Question_Type__c": "Number",
-            "Sequence__c": 10,
+            "Sequence__c": 15,
             "Weight__c": 0,
+            "Is_Required__c": true,
             "Risk_Assessment_Section__c": "@Risk_Assessment_Section__cRef2"
         },
         {
             "attributes": {
-                "type": "Question__c",
-                "referenceId": "Question__cRef4"
-            },
-            "Name": "Dias de Tosse",
-            "Question_Text__c": "Quantos Dias de Tosse?",
-            "Question_Type__c": "Number",
-            "Sequence__c": 30,
-            "Weight__c": 0.5,
-            "Risk_Assessment_Section__c": "@Risk_Assessment_Section__cRef1"
-        },
-        {
-            "attributes": {
-                "type": "Question__c",
+                "type": "BSC_Question__c",
                 "referenceId": "Question__cRef5"
             },
             "Name": "Estatura",
-            "Question_Text__c": "Estatura em Metros",
+            "Question_Text__c": "Qual a sua estatura (metros)?",
             "Question_Type__c": "Number",
             "Sequence__c": 20,
             "Weight__c": 0,
+            "Is_Required__c": true,
             "Risk_Assessment_Section__c": "@Risk_Assessment_Section__cRef2"
         },
         {
             "attributes": {
-                "type": "Question__c",
+                "type": "BSC_Question__c",
                 "referenceId": "Question__cRef6"
             },
             "Name": "Tosse",
-            "Question_Text__c": "Tem Tosse?",
-            "Question_Type__c": "Yes/No",
+            "Question_Text__c": "Está com tosse?",
+            "Question_Type__c": "List",
             "Sequence__c": 20,
             "Weight__c": 1,
+            "Is_Required__c": true,
             "Risk_Assessment_Section__c": "@Risk_Assessment_Section__cRef1"
         },
         {
             "attributes": {
-                "type": "Question__c",
+                "type": "BSC_Question__c",
                 "referenceId": "Question__cRef7"
             },
             "Name": "Dificuldade para respirar",
-            "Question_Text__c": "Dificuldade para respirar?",
+            "Question_Text__c": "Está com dificuldade para respirar?",
             "Question_Type__c": "List",
-            "Sequence__c": 40,
+            "Sequence__c": 30,
             "Weight__c": 1,
+            "Is_Required__c": true,
             "Risk_Assessment_Section__c": "@Risk_Assessment_Section__cRef1"
         },
         {
             "attributes": {
-                "type": "Question__c",
+                "type": "BSC_Question__c",
                 "referenceId": "Question__cRef8"
             },
             "Name": "Fumante",
             "Question_Text__c": "É fumante?",
-            "Question_Type__c": "Yes/No",
+            "Question_Type__c": "List",
             "Sequence__c": 40,
             "Weight__c": 0,
+            "Is_Required__c": true,
             "Risk_Assessment_Section__c": "@Risk_Assessment_Section__cRef2"
         },
         {
             "attributes": {
-                "type": "Question__c",
-                "referenceId": "Question__cRef9"
-            },
-            "Name": "Cigarros por dia",
-            "Question_Text__c": "Quantos cigarros por dia?",
-            "Question_Type__c": "Number",
-            "Sequence__c": 60,
-            "Weight__c": 1,
-            "Risk_Assessment_Section__c": "@Risk_Assessment_Section__cRef2"
-        },
-        {
-            "attributes": {
-                "type": "Question__c",
+                "type": "BSC_Question__c",
                 "referenceId": "Question__cRef10"
             },
             "Name": "Hipertensão",
-            "Question_Text__c": "Pressão Alta ?",
-            "Question_Type__c": "Yes/No",
-            "Sequence__c": 35,
+            "Question_Text__c": "Tem pressão alta?",
+            "Question_Type__c": "List",
+            "Sequence__c": 30,
             "Weight__c": 1,
+            "Is_Required__c": true,
             "Risk_Assessment_Section__c": "@Risk_Assessment_Section__cRef2"
         },
         {
             "attributes": {
-                "type": "Question__c",
+                "type": "BSC_Question__c",
                 "referenceId": "Question__cRef11"
             },
             "Name": "Tempo Fumante",
             "Question_Text__c": "Há quanto tempo fuma (anos)?",
             "Question_Type__c": "Number",
             "Sequence__c": 50,
-            "Weight__c": 0.5,
+            "Weight__c": 0,
+            "Is_Required__c": false,
+            "Is_Last_Question__c": true,
             "Risk_Assessment_Section__c": "@Risk_Assessment_Section__cRef2"
+        },
+        {
+            "attributes": {
+                "type": "BSC_Question__c",
+                "referenceId": "Question__cRef12"
+            },
+            "Name": "Febre",
+            "Question_Text__c": "O paciente registrou febre na última medição?",
+            "Question_Type__c": "List",
+            "Sequence__c": 10,
+            "Weight__c": 0,
+            "Is_Required__c": true,
+            "Is_Last_Question__c": false,
+            "Risk_Assessment_Section__c": "@Risk_Assessment_Section__cRef3"
+        },
+        {
+            "attributes": {
+                "type": "BSC_Question__c",
+                "referenceId": "Question__cRef13"
+            },
+            "Name": "UTI",
+            "Question_Text__c": "O paciente está na UTI?",
+            "Question_Type__c": "List",
+            "Sequence__c": 20,
+            "Weight__c": 0,
+            "Is_Required__c": true,
+            "Is_Last_Question__c": false,
+            "Risk_Assessment_Section__c": "@Risk_Assessment_Section__cRef3"
+        },
+        {
+            "attributes": {
+                "type": "BSC_Question__c",
+                "referenceId": "Question__cRef14"
+            },
+            "Name": "Entubado",
+            "Question_Text__c": "O paciente está entubado?",
+            "Question_Type__c": "List",
+            "Sequence__c": 30,
+            "Weight__c": 0,
+            "Is_Required__c": true,
+            "Is_Last_Question__c": false,
+            "Risk_Assessment_Section__c": "@Risk_Assessment_Section__cRef3"
+        },
+        {
+            "attributes": {
+                "type": "BSC_Question__c",
+                "referenceId": "Question__cRef15"
+            },
+            "Name": "Comentários Gerais",
+            "Question_Text__c": "Comentários Gerais",
+            "Question_Type__c": "Text",
+            "Sequence__c": 30,
+            "Weight__c": 0,
+            "Is_Required__c": false,
+            "Is_Last_Question__c": true,
+            "Risk_Assessment_Section__c": "@Risk_Assessment_Section__cRef3"
         }
+        
     ]
 }
