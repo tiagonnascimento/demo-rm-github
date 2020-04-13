@@ -94,22 +94,29 @@
                         <p class="slds-text-color_error">Você deve abrir um chamado com nossa equipe. Por favor preencha e/ou confira o formulário abaixo.</p>
                         <br />
                         <lightning-input 
+                            name="nomeContato"
                             type="text" 
                             label="Nome do Paciente"
                             value={riskCategory.data.nomeContato}
+                            onchange={handleContactFieldsChanges}
                             required>
                         </lightning-input>
                         <lightning-input 
+                            name="telefoneContato"
                             type="tel" 
                             label="Telefone" 
                             value={riskCategory.data.phone}
+                            placeholder="Utilize o padrão XX-XXXXX-XXXX ou XX-XXXX-XXXX"
                             pattern="([0-9]{2})-[0-9]{4,5}-[0-9]{4}"
+                            onchange={handleContactFieldsChanges}
                             required>
                         </lightning-input>
                         <lightning-input 
+                            name="emailContato"
                             type="email" 
                             label="E-mail" 
                             value={riskCategory.data.email}
+                            onchange={handleContactFieldsChanges}
                             required>
                         </lightning-input>
                         <br /> 

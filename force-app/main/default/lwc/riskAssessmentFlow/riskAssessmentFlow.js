@@ -1,7 +1,7 @@
-import { LightningElement, wire, api } from 'lwc';
+import { LightningElement, wire, api, track } from 'lwc';
 import { ShowToastEvent } from 'lightning/platformShowToastEvent';
 import { NavigationMixin } from 'lightning/navigation';
-import { encodeDefaultFieldValues } from 'lightning/pageReferenceUtils';
+import createUpdateCase from '@salesforce/apex/RiskAssessmentFlowController.createUpdateCase';
 import getRiskAssessmentQuestionaire from '@salesforce/apex/RiskAssessmentFlowController.getRiskAssessmentQuestionaire';
 import getRiskAssessmentCategory from '@salesforce/apex/RiskAssessmentFlowController.getRiskAssessmentCategory';
 
@@ -12,6 +12,10 @@ export default class RiskAssessmentFlow extends NavigationMixin(LightningElement
     @api cardTitle;
     @api riskAssessmentDefinitionName;
     @api recordId = null;
+
+    @track nomeContato = '';
+    @track telefoneContato = '';
+    @track emailContato = '';
 
     mostrarCalcularCategoriaRisco = false;
     respostas = new Map();
@@ -202,6 +206,17 @@ export default class RiskAssessmentFlow extends NavigationMixin(LightningElement
         }
     }
 
+    handleContactFieldsChanges(evt) {
+        const field = evt.target.name;
+        if (field === 'nomeContato') {
+            this.nomeContato = evt.target.value;
+        } else if (field === 'telefoneContato') {
+            this.telefoneContato = evt.target.value;
+        } else if (field === 'emailContato') {
+            this.emailContato = evt.target.value;
+        }
+    }
+
     handleClickAbrirChamado(evt) {
         var inputList = this.template.querySelectorAll(".slds-form-element");
         var validForm = true;
@@ -219,30 +234,66 @@ export default class RiskAssessmentFlow extends NavigationMixin(LightningElement
             this.dispatchEvent(evt);
         } else {
 
-            var description = '';
+            if (this.template.querySelector('.spinner-hide') != null) {
+                this.template.querySelector('.spinner-hide').className = 'spinner-show';
+            }
+
+            var formularioRespondido = '';
             this.respostas.forEach(function(value, key) {
-                description += key + ': ' + value + '\n'
+                formularioRespondido += key + ': ' + value + '\n'
             });
 
-            const defaultValues = encodeDefaultFieldValues({
-                Status: 'New',
-                Origin: 'Web-COVID',
-                Subject: 'Formulário de Análise de Risco de COVID-19: ' + this.riskCategory.data.name,
-                Priority: this.riskCategory.data.casePriority,
-                Description: description
-            });
+            if (this.nomeContato === '') {
+                this.nomeContato = this.riskCategory.data.nomeContato;
+            }
+            if (this.telefoneContato === '') {
+                this.telefoneContato = this.riskCategory.data.phone;
+            }
+            if (this.emailContato === '') {
+                this.emailContato = this.riskCategory.data.email;
+            }
 
-            this[NavigationMixin.Navigate]({
-                type: 'standard__objectPage',
-                attributes: {
-                    objectApiName: 'Case',
-                    actionName: 'new'
-                },
-                state: {
-                    defaultFieldValues: defaultValues,
-                    recordTypeId: this.riskCategory.data.caseRecordTypeId
-                }
-            });
+            let createUpdateCaseRequest = {
+                riskCategoryId: this.riskCategory.data.categoryId,
+                respostas: formularioRespondido,
+                nomeContato: this.nomeContato,
+                email: this.emailContato,
+                phone: this.telefoneContato
+            };
+
+            createUpdateCase({request: createUpdateCaseRequest})
+                .then((result) => {
+                    const evt = new ShowToastEvent({
+                        title: 'Sucesso',
+                        message: 'Chamado aberto com sucesso.',
+                        variant: 'success',
+                        mode: 'dismissable'
+                    });
+                    this.dispatchEvent(evt);
+
+                    this[NavigationMixin.Navigate]({
+                        type: 'standard__recordPage',
+                        attributes: {
+                            recordId: result,
+                            objectApiName: 'Case',
+                            actionName: 'view'
+                        }
+                    });
+                })
+                .catch((error) => {
+                    const evt = new ShowToastEvent({
+                        title: 'Erro',
+                        message: 'Aconteceu um erro ao criar chamado. Contate seu administrador.',
+                        variant: 'error',
+                        mode: 'dismissable'
+                    });
+                    this.dispatchEvent(evt);
+
+                    if (this.template.querySelector('.spinner-show') != null) {
+                        this.template.querySelector('.spinner-show').className = 'spinner-hide';
+                    }
+                });
+
         }
     }
 }

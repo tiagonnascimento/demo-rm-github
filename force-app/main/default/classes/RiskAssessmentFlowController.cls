@@ -2,6 +2,69 @@ public with sharing class RiskAssessmentFlowController {
 
     public static String HTML_ID_PREFIX = 'BS-COVID-19-';
 
+    @AuraEnabled
+    public static String createUpdateCase(CreateCaseRequest request) {
+
+        BSC_Risk_Category__c categoria = 
+            [SELECT Id, Name, Case_Record_Type__c, Case_Priority__c
+            FROM BSC_Risk_Category__c
+            WHERE Id = :request.riskCategoryId];
+
+        
+        Contact contato = null;
+        try {
+            contato = [Select Id, FirstName, LastName, Phone, Email from Contact WHERE Phone = :request.phone];
+        } catch (QueryException ex) {
+            // não faz nada, contato não existe
+        }
+         
+        if (contato == null) {
+            contato = new Contact();
+        }
+
+        if (request.nomeContato.contains(' ')) {
+            String[] nomes = request.nomeContato.split(' ');
+            contato.FirstName = nomes[0];
+            String nome = '';
+            for (Integer i = 0; i < nomes.size(); i++) {
+                if (i != 0) {
+                    nome += nomes[i] + ' ';
+                }
+            }
+            nome = nome.trim();
+            contato.LastName = nome;
+        } else {
+            contato.LastName = request.nomeContato;
+        }
+
+        contato.Phone = request.phone;
+        contato.Email = request.email;
+
+        if (contato.Id != null) {
+            update contato;
+        } else {
+            upsert contato Contact.Email; 
+        }
+        
+        Case caso = new Case();
+        caso.Status = 'New';
+        caso.Origin = 'Web-COVID19';
+        caso.Subject = 'Formulário de Análise de Risco de COVID-19 - Paciente:  ' 
+                        + request.nomeContato + ' Categoria de Risco: ' + categoria.Name;
+        caso.Priority = categoria.Case_Priority__c;
+        caso.Description = request.respostas;
+        caso.ContactId = contato.Id;
+        if (categoria.Case_Record_Type__c != null 
+            && Schema.SObjectType.Case.getRecordTypeInfosByName().get(categoria.Case_Record_Type__c) != null) {
+
+                caso.RecordTypeId = Schema.SObjectType.Case.getRecordTypeInfosByName().get(categoria.Case_Record_Type__c).getRecordTypeId();
+        }
+
+        insert caso;
+
+        return caso.Id;
+    }
+
     @AuraEnabled(cacheable=true) 
     public static Category getRiskAssessmentCategory(Double score, Id idRegistro) {
 
@@ -176,5 +239,8 @@ public with sharing class RiskAssessmentFlowController {
     public class CreateCaseRequest {
         @AuraEnabled public Id riskCategoryId {get; set;}
         @AuraEnabled public String respostas{get; set;}
+        @AuraEnabled public String nomeContato {get; set;}
+        @AuraEnabled public String email {get; set;}
+        @AuraEnabled public String phone {get; set;}
     }
 }
