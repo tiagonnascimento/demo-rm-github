@@ -3,8 +3,8 @@
         {
             "path": "force-app",
             "package": "Brasil sem COVID-19",
-            "versionName": "ver 0.9.11",
-            "versionNumber": "0.9.11.NEXT",
+            "versionName": "ver 0.9.12",
+            "versionNumber": "0.9.12.NEXT",
             "default": true
         }
     ],

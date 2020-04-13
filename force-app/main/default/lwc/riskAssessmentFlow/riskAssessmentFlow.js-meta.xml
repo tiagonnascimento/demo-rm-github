@@ -6,12 +6,21 @@
         <target>lightning__AppPage</target>
         <target>lightning__RecordPage</target>
         <target>lightning__HomePage</target>
+        <target>lightningCommunity__Page</target>
         <target>lightningCommunity__Default</target>
     </targets>
     <targetConfigs>
-        <targetConfig targets="lightning__AppPage, lightning__RecordPage, lightning__HomePage">
+        <targetConfig targets="lightning__HomePage">
             <property name="cardTitle" label="Title" type="String" />
             <property name="riskAssessmentDefinitionName" label="Risk Assessment Def Name" type="String" />
+        </targetConfig>
+        <targetConfig targets="lightning__AppPage, lightning__RecordPage">
+            <property name="cardTitle" label="Title" type="String" />
+            <property name="riskAssessmentDefinitionName" label="Risk Assessment Def Name" type="String" />
+            <supportedFormFactors>
+                <supportedFormFactor type="Large"></supportedFormFactor>
+                <supportedFormFactor type="Small"></supportedFormFactor>
+            </supportedFormFactors>
         </targetConfig>
         <targetConfig targets="lightningCommunity__Default">
             <property name="cardTitle" label="Title" type="String" />
