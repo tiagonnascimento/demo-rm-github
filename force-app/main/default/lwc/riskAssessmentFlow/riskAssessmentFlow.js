@@ -256,6 +256,7 @@ export default class RiskAssessmentFlow extends NavigationMixin(LightningElement
             let createUpdateCaseRequest = {
                 riskCategoryId: this.riskCategory.data.categoryId,
                 respostas: formularioRespondido,
+                idRegistro: this.recordId,
                 nomeContato: this.nomeContato,
                 email: this.emailContato,
                 phone: this.telefoneContato

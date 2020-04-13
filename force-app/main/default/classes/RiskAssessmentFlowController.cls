@@ -16,7 +16,11 @@ public with sharing class RiskAssessmentFlowController {
 
             Account acct = null;
             try {
-                acct = [Select Id, Name, Phone, PersonEmail from Account WHERE Phone = :request.phone];
+                if (request.idRegistro == null) {
+                    acct = [Select Id, FirstName, LastName, Phone, PersonEmail from Account WHERE Phone = :request.phone];
+                } else {
+                    acct = [Select Id, FirstName, LastName, Phone, PersonEmail from Account WHERE Id = :request.idRegistro];
+                }
             } catch (QueryException ex) {
                 // não faz nada, contato não existe
             }
@@ -25,7 +29,20 @@ public with sharing class RiskAssessmentFlowController {
                 acct = new Account();
             }
 
-            acct.Name = request.nomeContato;
+            if (request.nomeContato.contains(' ')) {
+                String[] nomes = request.nomeContato.split(' ');
+                acct.FirstName = nomes[0];
+                String nome = '';
+                for (Integer i = 0; i < nomes.size(); i++) {
+                    if (i != 0) {
+                        nome += nomes[i] + ' ';
+                    }
+                }
+                nome = nome.trim();
+                acct.LastName = nome;
+            } else {
+                acct.LastName = request.nomeContato;
+            }
             acct.Phone = request.phone;
             acct.PersonEmail = request.email;
             acct.put('RecordTypeId', Schema.SObjectType.Account.getRecordTypeInfosByDeveloperName().get('PersonAccount').getRecordTypeId());
@@ -244,6 +261,7 @@ public with sharing class RiskAssessmentFlowController {
     public class CreateCaseRequest {
         @AuraEnabled public Id riskCategoryId {get; set;}
         @AuraEnabled public String respostas{get; set;}
+        @AuraEnabled public Id idRegistro {get; set;}
         @AuraEnabled public String nomeContato {get; set;}
         @AuraEnabled public String email {get; set;}
         @AuraEnabled public String phone {get; set;}
