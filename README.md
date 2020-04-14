@@ -1,58 +1,104 @@
-# Salesforce App
+# Brasil sem COVID-19
 
-This guide helps Salesforce developers who are new to Visual Studio Code go from zero to a deployed app using Salesforce Extensions for VS Code and Salesforce CLI.
+Este projeto tem como objetivo entregar uma solução que facilita a triagem e o acompanhamento de pacientes suspeitos e/ou diagnosticados com COVID-19. Ele é composto por um modelo de objetos e um Lightning Web Component que pode ser utilizado em uma página agnóstica (por exemplo em uma Home Page de um Aplicativo) ou em uma página de Paciente (Person Account). Também pode ser utilizado em uma comunidade para abertura de chamado/caso. Este componente lerá do modelo de objetos o questionário e o apresentará dinamicamente para o usuário. O modelo de dados possui os seguintes objetos:
 
-## Part 1: Choosing a Development Model
+* BSC_Risk_Assessment_Definition__c: nome do questionário e container de todas as demais entidades
 
-There are two types of developer processes or models supported in Salesforce Extensions for VS Code and Salesforce CLI. These models are explained below. Each model offers pros and cons and is fully supported.
+  * BSC_Risk_Assessment_Section__c: seção do questionário, serve como um agrupador de perguntas
+    
+    * BSC_Question__c: pergunta - pode ter a resposta esperada do tipo Text, Number ou List. Pode ser requerida e a última pergunta do questionário. Para as perguntas do tipo Lista também haverá um peso que será utilizado em uma média ponderada no cálculo final do risco do paciente. 
+      
+      * BSC_Question_Option__c: se a pergunta for do tipo Lista, as opções de resposta estarão contidas neste objeto. Possui um score que será utilizado em conjunto com o peso da pergunta para o cálculo de uma média ponderada no cálculo final do risco do paciente.
 
-### Package Development Model
+  * BSC_Risk_Category__c: Categoria de risco final que o paciente se encontra. Possui orientações para o paciente, se deve ser aberto um chamado ou atualizado algum chamado existente, a prioridade do chamado e o tipo de registro do chamado a ser aberto. Possui também um score mínimo que as respostas do formulário deverá chegar para ser encaixado nesta categoria. 
 
-The package development model allows you to create self-contained applications or libraries that are deployed to your org as a single package. These packages are typically developed against source-tracked orgs called scratch orgs. This development model is geared toward a more modern type of software development process that uses org source tracking, source control, and continuous integration and deployment.
+O componente pode ser deployado tanto via unlocked package quanto via metadata API - ambos usando Salesforce CLI
 
-If you are starting a new project, we recommend that you consider the package development model. To start developing with this model in Visual Studio Code, see [Package Development Model with VS Code](https://forcedotcom.github.io/salesforcedx-vscode/articles/user-guide/package-development-model). For details about the model, see the [Package Development Model](https://trailhead.salesforce.com/en/content/learn/modules/sfdx_dev_model) Trailhead module.
+## Instalando o componente a partir do pacote publicado
 
-If you are developing against scratch orgs, use the command `SFDX: Create Project` (VS Code) or `sfdx force:project:create` (Salesforce CLI)  to create your project. If you used another command, you might want to start over with that command.
+Obtenha com o seu representante Salesforce o último ID do pacote publicado e na sua org / sandbox entre na seguinte URL: https:/<MY-DOMAIN>.lightning.force.com/packagingSetupUI/ipLanding.app?apvId=<ID_DO_PACOTE>
 
-When working with source-tracked orgs, use the commands `SFDX: Push Source to Org` (VS Code) or `sfdx force:source:push` (Salesforce CLI) and `SFDX: Pull Source from Org` (VS Code) or `sfdx force:source:pull` (Salesforce CLI). Do not use the `Retrieve` and `Deploy` commands with scratch orgs.
+A senha que vai ser solicitada é "csgrockz!".
 
-### Org Development Model
+## Configuração do ambiente de desenvolvimento
 
-The org development model allows you to connect directly to a non-source-tracked org (sandbox, Developer Edition (DE) org, Trailhead Playground, or even a production org) to retrieve and deploy code directly. This model is similar to the type of development you have done in the past using tools such as Force.com IDE or MavensMate.
+Para a manipulação do componente, é necessário a instalação dos seguintes softwares:
+* Salesforce CLI
+* SourceTree (client git - opcional mas útil)
+* Visual Studio Code com os seguintes pluggins:
+    * GitLens
+    * Salesforce Extension Pack
+    * Salesforce CLI Integration
+    * Salesforce Package.xml Generator Extension for VS Code
 
-To start developing with this model in Visual Studio Code, see [Org Development Model with VS Code](https://forcedotcom.github.io/salesforcedx-vscode/articles/user-guide/org-development-model). For details about the model, see the [Org Development Model](https://trailhead.salesforce.com/content/learn/modules/org-development-model) Trailhead module.
+Você também deverá ter acesso ao repositório remoto do Bitbucket e clonar o repositório em sua máquina local.
 
-If you are developing against non-source-tracked orgs, use the command `SFDX: Create Project with Manifest` (VS Code) or `sfdx force:project:create --manifest` (Salesforce CLI) to create your project. If you used another command, you might want to start over with this command to create a Salesforce DX project.
+### Deploy usando a Metadata API
 
-When working with non-source-tracked orgs, use the commands `SFDX: Deploy Source to Org` (VS Code) or `sfdx force:source:deploy` (Salesforce CLI) and `SFDX: Retrieve Source from Org` (VS Code) or `sfdx force:source:retrieve` (Salesforce CLI). The `Push` and `Pull` commands work only on orgs with source tracking (scratch orgs).
+Para fazer o deploy do componente usando a metadata API você precisa converter o código em metadados e então fazer o deploy. Para isto use a seguinte sequência de comandos:
 
-## The `sfdx-project.json` File
+* Converter o código em metadados:
 
-The `sfdx-project.json` file contains useful configuration information for your project. See [Salesforce DX Project Configuration](https://developer.salesforce.com/docs/atlas.en-us.sfdx_dev.meta/sfdx_dev/sfdx_dev_ws_config.htm) in the _Salesforce DX Developer Guide_ for details about this file.
-
-The most important parts of this file for getting started are the `sfdcLoginUrl` and `packageDirectories` properties.
-
-The `sfdcLoginUrl` specifies the default login URL to use when authorizing an org.
-
-The `packageDirectories` filepath tells VS Code and Salesforce CLI where the metadata files for your project are stored. You need at least one package directory set in your file. The default setting is shown below. If you set the value of the `packageDirectories` property called `path` to `force-app`, by default your metadata goes in the `force-app` directory. If you want to change that directory to something like `src`, simply change the `path` value and make sure the directory you’re pointing to exists.
-
-```json
-"packageDirectories" : [
-    {
-      "path": "force-app",
-      "default": true
-    }
-]
+```
+    sfdx force:source:convert -r force-app/ -d convertedapi -x manifest/package.xml
 ```
 
-## Part 2: Working with Source
+* Realizar o deploy em uma sandbox / org produtiva:
+```
+    sfdx force:mdapi:deploy -u <ALIAS_DA_ORG> -d convertedapi/ --testlevel RunLocalTests -w 10
+```
 
-For details about developing against scratch orgs, see the [Package Development Model](https://trailhead.salesforce.com/en/content/learn/modules/sfdx_dev_model) module on Trailhead or [Package Development Model with VS Code](https://forcedotcom.github.io/salesforcedx-vscode/articles/user-guide/package-development-model).
+Possivelmente qualquer alteração do componente será feito numa sandbox, o que fará com que seja necessário baixar alterações desta sandbox para fazer o deploy em uma org produtiva. Para isto poderá executar o seguinte comando: 
+```
+    sfdx force:source:retrieve --manifest manifest/package.xml -u <ALIAS_DA_ORG/SANDBOX>
+```
 
-For details about developing against orgs that don’t have source tracking, see the [Org Development Model](https://trailhead.salesforce.com/content/learn/modules/org-development-model) module on Trailhead or [Org Development Model with VS Code](https://forcedotcom.github.io/salesforcedx-vscode/articles/user-guide/org-development-model).
+Note que se novos metadados forem criados, talvez seja necessário atualizar o arquivo package.xml com estes novos metadados para o comando retrieve poder obtê-los. Para isto o componente Salesforce Package.xml Generator Extension for VS Code pode ser útil. Após isto, será necessário converter o código em metadado, conforme orientado acima, e realizar o deploy novamente. 
 
-## Part 3: Deploying to Production
+### Deploy usando Unlocked Packages
 
-Don’t deploy your code to production directly from Visual Studio Code. The deploy and retrieve commands do not support transactional operations, which means that a deployment can fail in a partial state. Also, the deploy and retrieve commands don’t run the tests needed for production deployments. The push and pull commands are disabled for orgs that don’t have source tracking, including production orgs.
+Além de ter o Salesforce CLI instalado, você deverá ter conectado na org produtiva que será utilizada como Dev Hub (pode ser uma developer org). Para isto você precisa habilitar o Dev Hub da org produtiva, e depois executar o seguinte comando:
 
-Deploy your changes to production using [packaging](https://developer.salesforce.com/docs/atlas.en-us.sfdx_dev.meta/sfdx_dev/sfdx_dev_dev2gp.htm) or by [converting your source](https://developer.salesforce.com/docs/atlas.en-us.sfdx_cli_reference.meta/sfdx_cli_reference/cli_reference_force_source.htm#cli_reference_convert) into metadata format and using the [metadata deploy command](https://developer.salesforce.com/docs/atlas.en-us.sfdx_cli_reference.meta/sfdx_cli_reference/cli_reference_force_mdapi.htm#cli_reference_deploy).
+```
+    sfdx force:auth:web:login -a <ALIAS_DA_ORG_QUE_VC_QUISER> 
+```
+
+Após isto, deverá executar a seguinte sequência de passos:
+
+* Criar uma scratch org:
+
+```
+    sfdx force:org:create -f config/project-scratch-def.json -a <ALIAS_DA_SCRATCH_ORG_QUE_VC_QUISER> -d 30 -u <ALIAS_DO_DEV_HUB>
+```
+
+* Fazer o push do código:
+
+```
+    sfdx force:source:push -u <ALIAS_DA_SCRATCH_ORG>
+```
+
+* Fazer suas alterações que quiser e então;
+
+* Limpar o arquivo sfdx-project.json, dando um novo nome pro componente e removendo a seção packageAliases;
+
+* Criar o pacote:
+
+```
+    sfdx force:package:create -n <NOME_DO_COMPONENTE> -t Unlocked -r force-app/ -d <DESCRIÇÃO_DO_COMPONENTE> -v <ALIAS_DO_DEVHUB>
+```
+* Criar uma nova versão do pacote:
+
+```
+    sfdx force:package:version:create -p <NOME_DO_COMPONENTE> -d force-app -k <SENHA_QUE_VC_QUISER> --wait 10 -v <ALIAS_DO_DEVHUB> -f config/project-scratch-def.json 
+```
+
+* Este comando atualizará o arquivo sfdx-project.json com uma nova versão. Esta versão será utilizada para você instalar o pacote - logo abaixo. Como passo opcional pode instalar este pacote em uma nova scratch org que vc deverá criar. Este mesmo comando poderá ser utilizado para instalar o pacote em qualquer outra org produtiva após ter promovido o mesmo. Para instalar o pacote pode usar o seguinte comando:
+
+```
+    sfdx force:package:install --wait 10 --publishwait 10 --package <NOME_DO_PACOTE>@<VERSAO_DO_PACOTE> -k <SENHA_ESCOLHIDA> -r -u <ALIAS_DA_SCRATCH_ORG_NOVA>
+```
+* Por fim, promova o pacote com o seguinte comando:
+
+```
+    sfdx force:package:version:promote -p <NOME_DO_PACOTE>@<VERSAO_DO_PACOTE> -v <ALIAS_DO_DEVHUB>
+```
