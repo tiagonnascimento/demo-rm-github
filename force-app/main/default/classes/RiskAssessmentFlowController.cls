@@ -1,7 +1,13 @@
-public with sharing class RiskAssessmentFlowController {
+/* author: Tiago Nascimento <tnascimento@salesforce.com>
+    APEX Controller of RiskAssessmentFlow LWC
+*/
+public class RiskAssessmentFlowController {
 
     public static String HTML_ID_PREFIX = 'BS-COVID-19-';
 
+    /*
+    * Method responsible for executing the final component action - create or update the case
+    */
     @AuraEnabled
     public static String createUpdateCase(CreateCaseRequest request) {
 
@@ -16,8 +22,10 @@ public with sharing class RiskAssessmentFlowController {
 
             Account acct = null;
             try {
+                    // whenever the component is invoked from context unaware page - such as a home page
                 if (request.idRegistro == null) {
                     acct = [Select Id, FirstName, LastName, Phone, PersonEmail from Account WHERE Phone = :request.phone];
+                    // whenever the component is invoked from context aware page - such as a record page
                 } else {
                     acct = [Select Id, FirstName, LastName, Phone, PersonEmail from Account WHERE Id = :request.idRegistro];
                 }
@@ -29,6 +37,7 @@ public with sharing class RiskAssessmentFlowController {
                 acct = new Account();
             }
 
+                // spliting name into first and last name
             if (request.nomeContato.contains(' ')) {
                 String[] nomes = request.nomeContato.split(' ');
                 acct.FirstName = nomes[0];
@@ -53,7 +62,8 @@ public with sharing class RiskAssessmentFlowController {
             } else {
                 insert acct; 
             }
-            
+
+                // creating the case
             Case caso = new Case();
             caso.Status = 'New';
             caso.Origin = 'Web-COVID19';
@@ -62,15 +72,6 @@ public with sharing class RiskAssessmentFlowController {
             caso.Priority = categoria.Case_Priority__c;
             caso.Description = request.respostas;
             caso.AccountId = acct.Id;
-
-            // TODO: Remover comentários abaixo.
-            // O trecho abaixo está comentado porque não é possível criar um Unlocked Package com ele, já que 
-            // o processo de validação de metadados falha, não reconhecendo o Case.RecordTypeId como uma variável 
-            // válida. Isto fará com que o caso criado seja o padrão da plataforma, e não o especificado na categoria
-            // de risco. Como este código faz parte de um unlocked package, basta descomentar as linhas abaixo e
-            // o componente voltará a funcionar como esperado. Acredito que tenha a ver com o Known Issue abaixo:
-            // https://success.salesforce.com/issues_view?id=a1p3A000000ATmUQAW&title=error-deploying-compact-layouts-in-field-recordtypeid-no-customfield-named-account-recordtypeid-found
-            // Pode ter certeza que eu tentei - acredito que gastei mais de 2 horas neste ponto e não saí do lugar. 
 
             if (categoria.Case_Record_Type__c != null 
                 && Schema.SObjectType.Case.getRecordTypeInfosByName().get(categoria.Case_Record_Type__c) != null) {
@@ -86,14 +87,19 @@ public with sharing class RiskAssessmentFlowController {
         return objectId;
     }
 
+    /*
+    * Method responsible for calculating the final risk assessment category based on the questionaire answers.
+    * The method will return a wrapper inner class, defined down below.
+    */
     @AuraEnabled(cacheable=true) 
-    public static Category getRiskAssessmentCategory(Double score, Id idRegistro) {
+    public static Category getRiskAssessmentCategory(String defName, Double score, Id idRegistro) {
 
         Category catR = null;
 
         BSC_Risk_Assessment_Definition__c rad = 
             [SELECT Id
-            FROM BSC_Risk_Assessment_Definition__c WHERE Active__c = TRUE 
+            FROM BSC_Risk_Assessment_Definition__c 
+            WHERE Name = :defName AND Active__c = TRUE 
             ORDER BY Initial_Date__c DESC  
             LIMIT 1];
 
@@ -102,13 +108,13 @@ public with sharing class RiskAssessmentFlowController {
             FROM BSC_Risk_Category__c
             WHERE Risk_Assessment_Definition__c = :rad.Id
             ORDER BY Minimum_Score__c DESC];
-
         
         Account acct = null;
         if (idRegistro != null && 'Account'.equals(idRegistro.getSObjectType().getDescribe().getName())) {
             acct = [SELECT Name, PersonEmail, Phone FROM Account WHERE Id = :idRegistro];
         }
         
+            // calculating the category that has higher minimum score that fits in the questionaire responses
         for (BSC_Risk_Category__c cat : categories) {
             if (catR == null && cat.Minimum_Score__c <= score) {
                 catR = new Category();
@@ -129,9 +135,12 @@ public with sharing class RiskAssessmentFlowController {
             }
         }
         return catR;
-
     }
 
+    /*
+    * Method responsible for getting the questionaire as informed by the component. The method will return a list
+    * of sections - a wrapper inner class defined down below. 
+    */
     @AuraEnabled(cacheable=true)
     public static List<Section> getRiskAssessmentQuestionaire(String defName) {
 

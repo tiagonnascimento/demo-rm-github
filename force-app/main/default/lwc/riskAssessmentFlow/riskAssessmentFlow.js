@@ -7,7 +7,7 @@ import getRiskAssessmentCategory from '@salesforce/apex/RiskAssessmentFlowContro
 
 export default class RiskAssessmentFlow extends NavigationMixin(LightningElement) {
     @wire(getRiskAssessmentQuestionaire, {defName: '$riskAssessmentDefinitionName'}) sections;    
-    @wire(getRiskAssessmentCategory, {score: '$scoreFinal', idRegistro: '$recordId'} ) riskCategory;
+    @wire(getRiskAssessmentCategory, {defName: '$riskAssessmentDefinitionName', score: '$scoreFinal', idRegistro: '$recordId'} ) riskCategory;
     
     @api cardTitle;
     @api riskAssessmentDefinitionName;
@@ -52,8 +52,6 @@ export default class RiskAssessmentFlow extends NavigationMixin(LightningElement
         this.firstQuestionEval = false;
         return "";
     }
-
-
 
     get sectionClass() {
         var sectionClassName = "";
@@ -294,7 +292,6 @@ export default class RiskAssessmentFlow extends NavigationMixin(LightningElement
                         this.template.querySelector('.spinner-show').className = 'spinner-hide';
                     }
                 });
-
         }
     }
 }
