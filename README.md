@@ -16,13 +16,18 @@ O componente pode ser deployado tanto via unlocked package quanto via metadata A
 
 ## Instalando o componente a partir do pacote publicado
 
-Obtenha com o seu representante Salesforce o último ID do pacote publicado e na sua org / sandbox entre na seguinte URL: https:/<MY-DOMAIN>.lightning.force.com/packagingSetupUI/ipLanding.app?apvId=<ID_DO_PACOTE>
+Obtenha com o seu representante Salesforce o último ID do pacote publicado e na sua org / sandbox entre na seguinte URL: 
+
+```
+    https:/<MY-DOMAIN>.lightning.force.com/packagingSetupUI/ipLanding.app?apvId=<ID_DO_PACOTE>
+```
 
 A senha que vai ser solicitada é "csgrockz!".
 
 ## Configuração do ambiente de desenvolvimento
 
 Para a manipulação do componente, é necessário a instalação dos seguintes softwares:
+
 * Salesforce CLI
 * SourceTree (client git - opcional mas útil)
 * Visual Studio Code com os seguintes pluggins:
