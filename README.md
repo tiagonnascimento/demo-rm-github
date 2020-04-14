@@ -107,3 +107,14 @@ Após isto, deverá executar a seguinte sequência de passos:
 ```
     sfdx force:package:version:promote -p <NOME_DO_PACOTE>@<VERSAO_DO_PACOTE> -v <ALIAS_DO_DEVHUB>
 ```
+
+## Autor Original
+Tiago Nascimento - tnascimento@salesforce.com
+
+## Contribuições
+Pull requests são bme vindos. Para alterações grandes, por favor abra uma discussão para conversarmos sobre o que você gostaria de alterar.
+
+Por favor, garanta a atualização dos testes, como apropriado.
+
+## Licença
+[MIT](https://choosealicense.com/licenses/mit/)
