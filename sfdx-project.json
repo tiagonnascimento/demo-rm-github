@@ -3,8 +3,8 @@
         {
             "path": "force-app",
             "package": "Brasil sem COVID-19",
-            "versionName": "ver 0.9.12",
-            "versionNumber": "0.9.12.NEXT",
+            "versionName": "ver 1.0.0",
+            "versionNumber": "1.0.0.NEXT",
             "default": true
         }
     ],
@@ -16,6 +16,7 @@
         "Brasil sem COVID-19@0.9.9-1": "04t4R000001KoqdQAC",
         "Brasil sem COVID-19@0.9.9-2": "04t4R000001KqJYQA0",
         "Brasil sem COVID-19@0.9.10-1": "04t4R000001KqqfQAC",
-        "Brasil sem COVID-19@0.9.11-1": "04t4R000001KsmUQAS"
+        "Brasil sem COVID-19@0.9.11-1": "04t4R000001KsmUQAS",
+        "Brasil sem COVID-19@1.0.0-1": "04t4R000001LwHGQA0"
     }
 }
