@@ -119,6 +119,9 @@ Um exemplo de dados foi deixado na estrutura do repositório, para importá-lo n
 ## Autor Original
 Tiago Nascimento - tnascimento@salesforce.com
 
+## Reconhecimentos
+* O modelo de dados original foi proposto por Ricardo Gabriel Alvaro
+
 ## Contribuições
 Pull requests são bem vindos. Para alterações grandes, por favor abra uma discussão para conversarmos sobre o que você gostaria de alterar.
 
