@@ -108,11 +108,19 @@ Após isto, deverá executar a seguinte sequência de passos:
     sfdx force:package:version:promote -p <NOME_DO_PACOTE>@<VERSAO_DO_PACOTE> -v <ALIAS_DO_DEVHUB>
 ```
 
+## Importação de dados
+
+Um exemplo de dados foi deixado na estrutura do repositório, para importá-lo na sandbox/org/scratch org use o seguinte comando:
+
+```
+    sfdx force:data:tree:import -u <ALIAS_DA_ORG> --plan scripts/data/data-import-plan.json
+```
+
 ## Autor Original
 Tiago Nascimento - tnascimento@salesforce.com
 
 ## Contribuições
-Pull requests são bme vindos. Para alterações grandes, por favor abra uma discussão para conversarmos sobre o que você gostaria de alterar.
+Pull requests são bem vindos. Para alterações grandes, por favor abra uma discussão para conversarmos sobre o que você gostaria de alterar.
 
 Por favor, garanta a atualização dos testes, como apropriado.
 
