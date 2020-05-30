@@ -20,48 +20,48 @@ public class RiskAssessmentFlowController {
 
         if (categoria.Create_a_Case__c) {
 
-            Account acct = null;
-            try {
-                    // whenever the component is invoked from context unaware page - such as a home page
-                if (request.idRegistro == null) {
-                    acct = [Select Id, FirstName, LastName, Phone, PersonEmail from Account WHERE Phone = :request.phone];
-                    // whenever the component is invoked from context aware page - such as a record page
-                } else {
-                    acct = [Select Id, FirstName, LastName, Phone, PersonEmail from Account WHERE Id = :request.idRegistro];
-                }
-            } catch (QueryException ex) {
-                // não faz nada, contato não existe
-            }
+            // Account acct = null;
+            // try {
+            //         // whenever the component is invoked from context unaware page - such as a home page
+            //     if (request.idRegistro == null) {
+            //         acct = [Select Id, FirstName, LastName, Phone, PersonEmail from Account WHERE Phone = :request.phone];
+            //         // whenever the component is invoked from context aware page - such as a record page
+            //     } else {
+            //         acct = [Select Id, FirstName, LastName, Phone, PersonEmail from Account WHERE Id = :request.idRegistro];
+            //     }
+            // } catch (QueryException ex) {
+            //     // não faz nada, contato não existe
+            // }
             
-            if (acct == null) {
-                acct = new Account();
-            }
+            // if (acct == null) {
+            //     acct = new Account();
+            // }
 
-                // spliting name into first and last name
-            if (request.nomeContato.contains(' ')) {
-                String[] nomes = request.nomeContato.split(' ');
-                acct.FirstName = nomes[0];
-                String nome = '';
-                for (Integer i = 0; i < nomes.size(); i++) {
-                    if (i != 0) {
-                        nome += nomes[i] + ' ';
-                    }
-                }
-                nome = nome.trim();
-                acct.LastName = nome;
-            } else {
-                acct.LastName = request.nomeContato;
-            }
-            acct.Phone = request.phone;
-            acct.PersonEmail = request.email;
-            acct.put('RecordTypeId', Schema.SObjectType.Account.getRecordTypeInfosByDeveloperName().get('PersonAccount').getRecordTypeId());
+            //     // spliting name into first and last name
+            // if (request.nomeContato.contains(' ')) {
+            //     String[] nomes = request.nomeContato.split(' ');
+            //     acct.FirstName = nomes[0];
+            //     String nome = '';
+            //     for (Integer i = 0; i < nomes.size(); i++) {
+            //         if (i != 0) {
+            //             nome += nomes[i] + ' ';
+            //         }
+            //     }
+            //     nome = nome.trim();
+            //     acct.LastName = nome;
+            // } else {
+            //     acct.LastName = request.nomeContato;
+            // }
+            // acct.Phone = request.phone;
+            // acct.PersonEmail = request.email;
+            // acct.put('RecordTypeId', Schema.SObjectType.Account.getRecordTypeInfosByDeveloperName().get('PersonAccount').getRecordTypeId());
 
 
-            if (acct.Id != null) {
-                update acct;
-            } else {
-                insert acct; 
-            }
+            // if (acct.Id != null) {
+            //     update acct;
+            // } else {
+            //     insert acct; 
+            // }
 
                 // creating the case
             Case caso = new Case();
@@ -71,7 +71,7 @@ public class RiskAssessmentFlowController {
                             + request.nomeContato + ' Categoria de Risco: ' + categoria.Name;
             caso.Priority = categoria.Case_Priority__c;
             caso.Description = request.respostas;
-            caso.AccountId = acct.Id;
+            // caso.AccountId = acct.Id;
 
             if (categoria.Case_Record_Type__c != null 
                 && Schema.SObjectType.Case.getRecordTypeInfosByName().get(categoria.Case_Record_Type__c) != null) {
@@ -110,9 +110,9 @@ public class RiskAssessmentFlowController {
             ORDER BY Minimum_Score__c DESC];
         
         Account acct = null;
-        if (idRegistro != null && 'Account'.equals(idRegistro.getSObjectType().getDescribe().getName())) {
-            acct = [SELECT Name, PersonEmail, Phone FROM Account WHERE Id = :idRegistro];
-        }
+        // if (idRegistro != null && 'Account'.equals(idRegistro.getSObjectType().getDescribe().getName())) {
+        //     acct = [SELECT Name, PersonEmail, Phone FROM Account WHERE Id = :idRegistro];
+        // }
         
             // calculating the category that has higher minimum score that fits in the questionaire responses
         for (BSC_Risk_Category__c cat : categories) {
@@ -126,11 +126,11 @@ public class RiskAssessmentFlowController {
                 catR.casePriority = cat.Case_Priority__c;
                 catR.createACase = cat.Create_a_Case__c;
                 catR.textToDisplay = cat.Final_Message_To_Display__c;
-                if (acct != null) {
-                    catR.nomeContato = acct.Name;
-                    catR.phone = acct.Phone;
-                    catR.email = acct.PersonEmail;
-                }
+                // if (acct != null) {
+                //     catR.nomeContato = acct.Name;
+                //     catR.phone = acct.Phone;
+                //     catR.email = acct.PersonEmail;
+                // }
                 break;
             }
         }
