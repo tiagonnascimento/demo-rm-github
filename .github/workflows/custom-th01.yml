@@ -28,7 +28,4 @@ jobs:
                 client_id: ${{ secrets.CONSUMER_KEY_UAT }}
                 username: ${{ secrets.USERNAME_UAT }}
                 checkonly: false
-                pre_manifest_path: manifest/package-preDeploy.xml
-                destructive_path: destructive
-                manifest_path: manifest/package-baseDeploy.xml
-                data_factory: scripts/apex/CreateBaseData.apex
+                manifest_path: manifest/package.xml
