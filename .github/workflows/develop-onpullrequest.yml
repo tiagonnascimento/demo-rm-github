@@ -1,0 +1,33 @@
+# Unique name for this workflow
+name: On pull request to develop - Check deployment against Prod
+
+# Definition when the workflow should run
+on:
+    pull_request:
+        branches:
+            - develop
+
+# Jobs to be executed
+jobs:
+    build-deploy:
+        runs-on: ubuntu-latest
+        steps:
+
+            # Checkout the code in the pull request
+            - name: 'Checkout source code'
+              uses: actions/checkout@v2
+
+            - name: 'Build and Deploy'
+              uses: tiagonnascimento/sfdx-orgdev-build-deploy@v1.1
+              with:
+                type: 'production'
+                certificate_path: devops/server.key.enc
+                decryption_key: ${{ secrets.DECRYPTION_KEY }}
+                decryption_iv: ${{ secrets.DECRYPTION_IV }}
+                client_id: ${{ secrets.CONSUMER_KEY_PROD }}
+                username: ${{ secrets.USERNAME_PROD }}
+                checkonly: true
+                pre_manifest_path: manifest/package-preDeploy.xml
+                destructive_path: destructive
+                manifest_path: manifest/package-baseDeploy.xml
+                data_factory: scripts/apex/CreateBaseData.apex

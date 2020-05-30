@@ -1,0 +1,1 @@
+curl -v --data '{ "event_type": "<ACTION_HERE for instance: deploy-uat>", "client_payload": { "ref": "<REF/BRANCH here, for instance: release/1.2" } }' -H "Authorization: token <PERSONAL_TOKEN_HERE>" -H "Accept: application/vnd.github.everest-preview+json" --request POST https://api.github.com/repos/Professiona-Services-LATAM/bradesco-atacado/dispatches

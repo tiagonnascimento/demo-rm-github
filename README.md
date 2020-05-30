@@ -19,7 +19,7 @@ O componente pode ser deployado tanto via unlocked package quanto via metadata A
 Obtenha com o seu representante Salesforce o último ID do pacote publicado e na sua org / sandbox entre na seguinte URL: 
 
 ```
-    https:/<MY-DOMAIN>.lightning.force.com/packagingSetupUI/ipLanding.app?apvId=<ID_DO_PACOTE>
+https:/<MY-DOMAIN>.lightning.force.com/packagingSetupUI/ipLanding.app?apvId=<ID_DO_PACOTE>
 ```
 
 A senha que vai ser solicitada é "csgrockz!".
@@ -45,17 +45,17 @@ Para fazer o deploy do componente usando a metadata API você precisa converter 
 * Converter o código em metadados:
 
 ```
-    sfdx force:source:convert -r force-app/ -d convertedapi -x manifest/package.xml
+sfdx force:source:convert -r force-app/ -d convertedapi -x manifest/package.xml
 ```
 
 * Realizar o deploy em uma sandbox / org produtiva:
 ```
-    sfdx force:mdapi:deploy -u <ALIAS_DA_ORG> -d convertedapi/ --testlevel RunLocalTests -w 10
+sfdx force:mdapi:deploy -u <ALIAS_DA_ORG> -d convertedapi/ --testlevel RunLocalTests -w 10
 ```
 
 Possivelmente qualquer alteração do componente será feito numa sandbox, o que fará com que seja necessário baixar alterações desta sandbox para fazer o deploy em uma org produtiva. Para isto poderá executar o seguinte comando: 
 ```
-    sfdx force:source:retrieve --manifest manifest/package.xml -u <ALIAS_DA_ORG/SANDBOX>
+sfdx force:source:retrieve --manifest manifest/package.xml -u <ALIAS_DA_ORG/SANDBOX>
 ```
 
 Note que se novos metadados forem criados, talvez seja necessário atualizar o arquivo package.xml com estes novos metadados para o comando retrieve poder obtê-los. Para isto o componente Salesforce Package.xml Generator Extension for VS Code pode ser útil. Após isto, será necessário converter o código em metadado, conforme orientado acima, e realizar o deploy novamente. 
@@ -65,7 +65,7 @@ Note que se novos metadados forem criados, talvez seja necessário atualizar o a
 Além de ter o Salesforce CLI instalado, você deverá ter conectado na org produtiva que será utilizada como Dev Hub (pode ser uma developer org). Para isto você precisa habilitar o Dev Hub da org produtiva, e depois executar o seguinte comando:
 
 ```
-    sfdx force:auth:web:login -a <ALIAS_DA_ORG_QUE_VC_QUISER> 
+sfdx force:auth:web:login -a <ALIAS_DA_ORG_QUE_VC_QUISER> 
 ```
 
 Após isto, deverá executar a seguinte sequência de passos:
@@ -73,13 +73,13 @@ Após isto, deverá executar a seguinte sequência de passos:
 * Criar uma scratch org:
 
 ```
-    sfdx force:org:create -f config/project-scratch-def.json -a <ALIAS_DA_SCRATCH_ORG_QUE_VC_QUISER> -d 30 -u <ALIAS_DO_DEV_HUB>
+sfdx force:org:create -f config/project-scratch-def.json -a <ALIAS_DA_SCRATCH_ORG_QUE_VC_QUISER> -d 30 -u <ALIAS_DO_DEV_HUB>
 ```
 
 * Fazer o push do código:
 
 ```
-    sfdx force:source:push -u <ALIAS_DA_SCRATCH_ORG>
+sfdx force:source:push -u <ALIAS_DA_SCRATCH_ORG>
 ```
 
 * Fazer suas alterações que quiser e então;
@@ -89,23 +89,23 @@ Após isto, deverá executar a seguinte sequência de passos:
 * Criar o pacote:
 
 ```
-    sfdx force:package:create -n <NOME_DO_COMPONENTE> -t Unlocked -r force-app/ -d <DESCRIÇÃO_DO_COMPONENTE> -v <ALIAS_DO_DEVHUB>
+sfdx force:package:create -n <NOME_DO_COMPONENTE> -t Unlocked -r force-app/ -d <DESCRIÇÃO_DO_COMPONENTE> -v <ALIAS_DO_DEVHUB>
 ```
 * Criar uma nova versão do pacote:
 
 ```
-    sfdx force:package:version:create -p <NOME_DO_COMPONENTE> -d force-app -k <SENHA_QUE_VC_QUISER> --wait 10 -v <ALIAS_DO_DEVHUB> -f config/project-scratch-def.json 
+sfdx force:package:version:create -p <NOME_DO_COMPONENTE> -d force-app -k <SENHA_QUE_VC_QUISER> --wait 10 -v <ALIAS_DO_DEVHUB> -f config/project-scratch-def.json 
 ```
 
 * Este comando atualizará o arquivo sfdx-project.json com uma nova versão. Esta versão será utilizada para você instalar o pacote - logo abaixo. Como passo opcional pode instalar este pacote em uma nova scratch org que vc deverá criar. Este mesmo comando poderá ser utilizado para instalar o pacote em qualquer outra org produtiva após ter promovido o mesmo. Para instalar o pacote pode usar o seguinte comando:
 
 ```
-    sfdx force:package:install --wait 10 --publishwait 10 --package <NOME_DO_PACOTE>@<VERSAO_DO_PACOTE> -k <SENHA_ESCOLHIDA> -r -u <ALIAS_DA_SCRATCH_ORG_NOVA>
+sfdx force:package:install --wait 10 --publishwait 10 --package <NOME_DO_PACOTE>@<VERSAO_DO_PACOTE> -k <SENHA_ESCOLHIDA> -r -u <ALIAS_DA_SCRATCH_ORG_NOVA>
 ```
 * Por fim, promova o pacote com o seguinte comando:
 
 ```
-    sfdx force:package:version:promote -p <NOME_DO_PACOTE>@<VERSAO_DO_PACOTE> -v <ALIAS_DO_DEVHUB>
+sfdx force:package:version:promote -p <NOME_DO_PACOTE>@<VERSAO_DO_PACOTE> -v <ALIAS_DO_DEVHUB>
 ```
 
 ## Importação de dados
@@ -113,8 +113,20 @@ Após isto, deverá executar a seguinte sequência de passos:
 Um exemplo de dados foi deixado na estrutura do repositório, para importá-lo na sandbox/org/scratch org use o seguinte comando:
 
 ```
-    sfdx force:data:tree:import -u <ALIAS_DA_ORG> --plan scripts/data/data-import-plan.json
+sfdx force:data:tree:import -u <ALIAS_DA_ORG> --plan scripts/data/data-import-plan.json
 ```
+
+## Executando Github Workflows manualmente
+
+Em alguns momentos é necessário executar Github Workflow manualmente, por exemplo, ao atualizar um ambiente de treinamento. Normalmente este tipo de ambiente não tem o seu ciclo de vida associado a uma branch, e poder mesmo assim executar o build & deploy via Github garante que o mesmo script utilizado para configurar produção vai ser usado para configurar este ambiente em específico. 
+
+Infelizmente, o Github não provê uma interface gráfica para fazer isto de maneira simples, como existe por exemplo no Bitbucket (Run Pipelines), então é necessário criar um evento chamado [Repository Dispatch](https://developer.github.com/v3/repos/#create-a-repository-dispatch-event) e indicar no seu workflow a ação com base neste evento. 
+
+Para isto você precisará seguir os seguintes passos:
+
+* Criar um token de acesso para CLI: https://help.github.com/en/github/authenticating-to-github/creating-a-personal-access-token-for-the-command-line
+
+* Executar o curl, usando como referência o arquivo curl-cheatsheet.txt localizado em scripts/github. Como parâmetro você deve especificar o nome do evento e a referência (qual branch/tag/commit SHA vai ser utilizado para checkout). Depois é só acompanhar o workflow sendo executado no github.
 
 ## Autor Original
 Tiago Nascimento - tnascimento@salesforce.com
