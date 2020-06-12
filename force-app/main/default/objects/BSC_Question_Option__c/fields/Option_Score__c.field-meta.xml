@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<CustomField xmlns="http://soap.sforce.com/2006/04/metadata" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Option_Score__c</fullName>
     <defaultValue>0</defaultValue>
-    <deprecated>false</deprecated>
-    <description>This field is multiplied with question&#39;s weight to define the final score for the question</description>
+    <description>This field is multiplied with question&apos;s weight to define the final score for the question</description>
     <externalId>false</externalId>
     <label>Option Score</label>
     <precision>12</precision>
