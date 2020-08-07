@@ -6,12 +6,12 @@
     </classAccesses>
     <fieldPermissions>
         <editable>true</editable>
-        <field>BSC_Question__c.Is_Required__c</field>
+        <field>BSC_Question__c.Is_Last_Question__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
-        <field>BSC_Question__c.Is_Last_Question__c</field>
+        <field>BSC_Question__c.Is_Required__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -36,6 +36,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
+        <field>BSC_Risk_Category__c.Case_Priority__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
         <field>BSC_Risk_Category__c.Case_Record_Type__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -47,11 +52,6 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>BSC_Risk_Category__c.Update_a_Case__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>true</editable>
-        <field>BSC_Risk_Category__c.Case_Priority__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <hasActivationRequired>false</hasActivationRequired>
