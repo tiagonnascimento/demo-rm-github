@@ -6,10 +6,6 @@
 		<name>ApexClass</name>
 	</types>
 	<types>
-		<members>standard__LightningSales</members>
-		<name>CustomApplication</name>
-	</types>
-	<types>
 		<members>BSC_Question_Option__c</members>
 		<members>BSC_Question__c</members>
 		<members>BSC_Risk_Assessment_Definition__c</members>
@@ -24,11 +20,6 @@
 		<members>BSC_Risk_Assessment_Section__c</members>
 		<members>BSC_Risk_Category__c</members>
 		<name>CustomTab</name>
-	</types>
-	<types>
-		<members>Conta_P_gina_de_registro</members>
-		<members>Contato_P_gina_de_registro</members>
-		<name>FlexiPage</name>
 	</types>
 	<types>
 		<members>BSC_Question_Option__c-Question Option Layout</members>
