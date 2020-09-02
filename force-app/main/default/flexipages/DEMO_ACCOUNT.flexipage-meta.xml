@@ -223,6 +223,17 @@
                 </componentInstanceProperties>
                 <componentName>forceChatter:recommendations</componentName>
             </componentInstance>
+            <componentInstance>
+                <componentInstanceProperties>
+                    <name>cardTitle</name>
+                    <value>Formulário COVID-19</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>riskAssessmentDefinitionName</name>
+                    <value>COVID-19: Formulário de Triagem</value>
+                </componentInstanceProperties>
+                <componentName>riskAssessmentFlow</componentName>
+            </componentInstance>
         </itemInstances>
         <itemInstances>
             <componentInstance>
