@@ -203,6 +203,28 @@
         <itemInstances>
             <componentInstance>
                 <componentInstanceProperties>
+                    <name>displayNumber</name>
+                    <value>3</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>recommendationTypes</name>
+                    <valueList>
+                        <valueListItems>
+                            <value>users</value>
+                        </valueListItems>
+                        <valueListItems>
+                            <value>groups</value>
+                        </valueListItems>
+                    </valueList>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>title</name>
+                    <value>Einstein Recommendations</value>
+                </componentInstanceProperties>
+                <componentName>forceChatter:recommendations</componentName>
+            </componentInstance>
+            <componentInstance>
+                <componentInstanceProperties>
                     <name>cardTitle</name>
                     <value>Formulário COVID-19</value>
                 </componentInstanceProperties>
