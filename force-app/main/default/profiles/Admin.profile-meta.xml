@@ -326,7 +326,7 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>true</editable>
+        <editable>No</editable>
         <field>Account.BRAT_NBR_COD_GRUPO_ECONOMICO_CNPJ__c</field>
         <readable>true</readable>
     </fieldPermissions>
