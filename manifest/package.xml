@@ -5,6 +5,7 @@
 		<members>RiskAssessmentFlowControllerTest</members>
 		<name>ApexClass</name>
 	</types>
+	<!--
 	<types>
 		<members>standard__LightningSales</members>
 		<name>CustomApplication</name>
@@ -44,6 +45,6 @@
 	<types>
 		<members>BSC_PS_STANDARD</members>
 		<name>PermissionSet</name>
-	</types>
+	</types> -->
 	<version>48.0</version>
 </Package>
