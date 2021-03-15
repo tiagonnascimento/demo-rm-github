@@ -28,3 +28,4 @@ jobs:
                 username: ${{ secrets.USERNAME_BUILD }}
                 checkonly: false
                 manifest_path: manifest/package.xml
+                deploy_testlevel: RunSpecifiedTests
